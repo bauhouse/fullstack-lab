@@ -26,10 +26,10 @@ body {
   transform-style: preserve-3d;
 }
 
-#shape {
-  position: relative;
-  top: 42%;
-  margin: 0 auto;
+.ring {
+  position: absolute;
+  top: 40%;
+  left: 0;
   height: 67px;
   width: 67px;
   transform-style: preserve-3d;
@@ -53,7 +53,7 @@ body {
   color: DodgerBlue;
 }
 
-#shape.backfaces .plane {
+.ring.backfaces .plane {
   backface-visibility: visible;
 }
 
