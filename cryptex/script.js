@@ -34,6 +34,7 @@ var numRings = 12;
 var ringSpacing = 100;
 
 var strings = [];
+var numbers = {};
 var chars = [];
 var codeChars = [];
 var codeTexts = [];
@@ -97,6 +98,11 @@ function initialize() {
   sw = stg.innerWidth;
   sh = stg.innerHeight;
 
+  // remove shape from stage
+  shape.remove();
+
+  initializeRings();
+
   // trackKeyboardInput();
   // displayRingSelected();
   // initializeCryptexRings();
@@ -117,66 +123,96 @@ function initializeRings() {
     "S", "T", "U", "V", "W", "X", "Y", "Z", "0",
     "1", "2", "3", "4", "5", "6", "7", "8", "9"];
 
+  // Numbers dictionary
+  numbers = {
+    0: "zero",
+    1: "one",
+    2: "two",
+    3: "three",
+    4: "four",
+    5: "five",
+    6: "six",
+    7: "seven",
+    8: "eight",
+    9: "nine"
+  }
+
   drawCodeRings();
 }
 
 function drawCodeRings() {
 
-//   for (var i = 0; i < numRings; i++) {
+  for (var i = 0; i < numRings; i++) {
 
-//     var positionX = (i - (numRings / 2)) * ringSpacing + (ringSpacing / 2);
+    var positionX = (i - (numRings / 2)) * ringSpacing + (ringSpacing / 2);
 
-//     // Create backgrounds for each ring
-//     cylinders[i] = new Cylinder(materials[i], 200, 50, 108, 1, -1, false, false);
-//     cylinders[i].rotationZ = 90;
-//     cylinders[i].x = positionX;
-//     cylinders[i].z = 8;
-//     cylinders[i].name = "cylinder" + String(i + 1);
-//     cylinders[i].addEventListener(InteractiveScene3DEvent.OBJECT_PRESS, objectPressHandler);
-//     scene.addChild(cylinders[i]);
+    // Create backgrounds for each ring
+    // cylinders[i] = new Cylinder(materials[i], 200, 50, 108, 1, -1, false, false);
+    // cylinders[i].rotationZ = 90;
+    // cylinders[i].x = positionX;
+    // cylinders[i].z = 8;
+    // cylinders[i].name = "cylinder" + String(i + 1);
+    // cylinders[i].addEventListener(InteractiveScene3DEvent.OBJECT_PRESS, objectPressHandler);
+    // scene.addChild(cylinders[i]);
 
-//     // Create arrays for each ring
-//     codeChars[i] = [];
-//     codeTexts[i] = [];
-//     codeArray[i] = [];
-//     textMaterials[i] = [];
+    // Create arrays for each ring
+    // codeChars[i] = [];
+    // codeTexts[i] = [];
+    // codeArray[i] = [];
+    // textMaterials[i] = [];
 
-//     rings[i] = new DisplayObject3D();
-//     rings[i] = drawRing(i);
-//     rings[i].x = positionX;
-//     rings[i].name = "ring" + String(i + 1);
-//     scene.addChild(rings[i]);
+    rings[i] = drawRing(i, positionX);
+    rings[i].name = "ring" + String(i + 1);
+    stage.appendChild(rings[i]);
 
-//   }
+  }
 
 }
 
-function drawRing(ringIndex) {
-//   var ring = new DisplayObject3D();
+function drawRing(ringIndex, positionX) {
+  var ring = document.createElement('div');
 
-//   for (var i = 0; i < strings.length; i++) {
+  ring.id = 'ring' + (ringIndex + 1);
+  ring.className = 'ring backfaces';
+  ring.style.left = positionX + 'px';
 
-//     textMaterials[ringIndex][i] = new Letter3DMaterial(0x000000, 0.5);
+  for (var i = 0; i < strings.length; i++) {
 
-//     text3D[i] = new Text3D(strings[i], font3D, textMaterials[ringIndex][i]);
-//     text3D[i].scale = .25;
-//     text3D[i].z = -200;
-//     text3D[i].name = "ring" + String(ringIndex + 1) + "text" + String(i + 1);
+    var plane = document.createElement('div');
 
-//     // containers as pivot point for characters
-//     chars[i] = new DisplayObject3D();
-//     chars[i].addChild(text3D[i]);
-//     chars[i].rotationX = -(i * 360 / strings.length);
-//     chars[i].name = "ring" + String(ringIndex + 1) + "char" + String(i + 1);
+    // set text for each plane
+    var char = strings[i];
+    plane.innerText = char;
 
-//     // an array to be able to access children by index
-//     codeChars[ringIndex][i] = chars[i];
-//     codeTexts[ringIndex][i] = text3D[i];
+    // set class for each plane
+    plane.className = 'plane ';
+    if (isNaN(char)) {
+      plane.className += char.toLowerCase();
+    } else {
+      num = Number(char);
+      plane.className += lookupNumber(num);
+    }
 
-//     ring.addChild(chars[i]);
-//   }
+    // set selected class for first item
+    if (i == 0) {
+      addClassName(plane, 'selected');
+    }
 
-//   return ring;
+    // add plane to chars array
+    // chars[i] = plane;
+
+    // an array to be able to access children by index
+    // codeChars[ringIndex][i] = chars[i];
+    // codeTexts[ringIndex][i] = text3D[i];
+
+    ring.appendChild(plane);
+  }
+
+  return ring;
+}
+
+function lookupNumber(num) {
+  return numbers[num];
 }
 
 // // --------------------------------------
