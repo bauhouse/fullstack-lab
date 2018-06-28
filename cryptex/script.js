@@ -18,6 +18,15 @@ var vh;
 
 
 // --------------------------------------
+// Document variables
+// --------------------------------------
+
+var container = document.getElementById('container');
+var stage = document.getElementById('stage');
+var shape = document.getElementById('shape');
+
+
+// --------------------------------------
 // Cryptex rings variables
 // --------------------------------------
 
