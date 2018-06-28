@@ -1,0 +1,212 @@
+/* https://webkit.org/blog-files/3d-transforms/morphing-cubes.html */
+
+body {
+  background-color: black;
+  color: white;
+  font-family: 'Lucida Grande', Verdana, Arial;
+  font-size: 12px;
+  background-image: -webkit-gradient(radial,
+    50% 500, 1,
+    50% 500, 400,
+    from(rgba(255, 255, 255, 0.3)),
+    to(rgba(255, 255, 255, 0)));
+  background-repeat: no-repeat;
+}
+
+#container {
+  width: 100%;
+  height: 1000px;
+  perspective: 800;
+  perspective-origin: 50% 400px;
+}
+#stage {
+  width: 100%;
+  height: 100%;
+  transition: transform 2s;
+  transform-style: preserve-3d;
+}
+
+#shape {
+  position: relative;
+  top: 42%;
+  margin: 0 auto;
+  height: 67px;
+  width: 67px;
+  transform-style: preserve-3d;
+}
+
+.plane {
+  position: absolute;
+  height: 67px;
+  width: 67px;
+  box-sizing: border-box;
+  text-align: center;
+  font-family: Times, serif;
+  font-size: 54px;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.8);
+  transition: transform 2s, opacity 2s;
+  backface-visibility: hidden;
+}
+
+.selected {
+  color: DodgerBlue;
+}
+
+#shape.backfaces .plane {
+  backface-visibility: visible;
+}
+
+#shape {
+/*   -webkit-animation: spin 8s infinite linear; */
+}
+
+@-webkit-keyframes spin {
+  from { transform: rotateX(0); }
+  to   { transform: rotateX(-360deg); }
+}
+
+/* ---------- ring styles ------------- */
+.ring > .a {
+  transform: rotateX(0deg) translateZ(380px);
+}
+
+.ring > .b {
+  transform: rotateX(350deg) translateZ(380px);
+}
+
+.ring > .c {
+  transform: rotateX(340deg) translateZ(380px);
+}
+
+.ring > .d {
+  transform: rotateX(330deg) translateZ(380px);
+}
+
+.ring > .e {
+  transform: rotateX(320deg) translateZ(380px);
+}
+
+.ring > .f {
+  transform: rotateX(310deg) translateZ(380px);
+}
+
+.ring > .g {
+  transform: rotateX(300deg) translateZ(380px);
+}
+
+.ring > .h {
+  transform: rotateX(290deg) translateZ(380px);
+}
+
+.ring > .i {
+  transform: rotateX(280deg) translateZ(380px);
+}
+
+.ring > .j {
+  transform: rotateX(270deg) translateZ(380px);
+}
+
+.ring > .k {
+  transform: rotateX(260deg) translateZ(380px);
+}
+
+.ring > .l {
+  transform: rotateX(250deg) translateZ(380px);
+}
+
+.ring > .m {
+  transform: rotateX(240deg) translateZ(380px);
+}
+
+.ring > .n {
+  transform: rotateX(230deg) translateZ(380px);
+}
+
+.ring > .o {
+  transform: rotateX(220deg) translateZ(380px);
+}
+
+.ring > .p {
+  transform: rotateX(210deg) translateZ(380px);
+}
+
+.ring > .q {
+  transform: rotateX(200deg) translateZ(380px);
+}
+
+.ring > .r {
+  transform: rotateX(190deg) translateZ(380px);
+}
+
+.ring > .s {
+  transform: rotateX(180deg) translateZ(380px);
+}
+
+.ring > .t {
+  transform: rotateX(170deg) translateZ(380px);
+}
+
+.ring > .u {
+  transform: rotateX(160deg) translateZ(380px);
+}
+
+.ring > .v {
+  transform: rotateX(150deg) translateZ(380px);
+}
+
+.ring > .w {
+  transform: rotateX(140deg) translateZ(380px);
+}
+
+.ring > .x {
+  transform: rotateX(130deg) translateZ(380px);
+}
+
+.ring > .y {
+  transform: rotateX(120deg) translateZ(380px);
+}
+
+.ring > .z {
+  transform: rotateX(110deg) translateZ(380px);
+}
+
+.ring > .zero {
+  transform: rotateX(100deg) translateZ(380px);
+}
+
+.ring > .one {
+  transform: rotateX(90deg) translateZ(380px);
+}
+
+.ring > .two {
+  transform: rotateX(80deg) translateZ(380px);
+}
+
+.ring > .three {
+  transform: rotateX(70deg) translateZ(380px);
+}
+
+.ring > .four {
+  transform: rotateX(60deg) translateZ(380px);
+}
+
+.ring > .five {
+  transform: rotateX(50deg) translateZ(380px);
+}
+
+.ring > .six {
+  transform: rotateX(40deg) translateZ(380px);
+}
+
+.ring > .seven {
+  transform: rotateX(30deg) translateZ(380px);
+}
+
+.ring > .eight {
+  transform: rotateX(20deg) translateZ(380px);
+}
+
+.ring > .nine {
+  transform: rotateX(10deg) translateZ(380px);
+}

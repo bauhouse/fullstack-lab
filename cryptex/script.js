@@ -1,0 +1,714 @@
+// --------------------------------------
+// Constants
+// --------------------------------------
+
+const SOLVED = "cryptexSolved";
+
+
+// --------------------------------------
+// Stage variables
+// --------------------------------------
+
+var stg;
+var sw;
+var sh;
+
+var vw;
+var vh;
+
+
+// --------------------------------------
+// Cryptex rings variables
+// --------------------------------------
+
+var numRings = 12;
+var ringSpacing = 100;
+
+var strings = [];
+var chars = [];
+var codeChars = [];
+var codeTexts = [];
+var codeArray = [];
+var rings = [];
+var buttons = [];
+
+var hint = "            ";
+var solution = "PUZZLESOLVED";
+var success = false;
+
+
+// --------------------------------------
+// Keyboard input tracking variables
+// --------------------------------------
+
+var numChars = numRings;
+
+var code;
+
+var key;
+var charSelected = 36;
+var ringSelected = 0;
+var ringLastSelected = 0;
+var inputMode = "enter";
+
+
+// --------------------------------------
+// Drag variables
+// --------------------------------------
+
+var cylinders = [];
+var currentCylinder;
+var initMouseY;
+var ringSelectedInitRotation;
+var previousMouseY;
+var isMouseDown = false;
+var dragRing = false;
+
+
+// --------------------------------------
+// Cryptex hint messages
+// --------------------------------------
+
+var hintMessages;
+
+
+// --------------------------------------
+// Initialize Cryptex
+// --------------------------------------
+
+cryptex();
+
+function cryptex() {
+	window.onload = initialize;
+}
+
+function initialize() {
+
+  stg = window;
+  sw = stg.innerWidth;
+  sh = stg.innerHeight;
+
+  // trackKeyboardInput();
+  // displayRingSelected();
+  // initializeCryptexRings();
+  // addMouseEventListeners();
+  // displayHints();
+
+}
+
+// --------------------------------------
+// Draw Cryptex rings
+// --------------------------------------
+
+function initializeRings() {
+
+  // Characters: A-Z, 0-9
+  strings = ["A", "B", "C", "D", "E", "F", "G", "H", "I",
+    "J", "K", "L", "M", "N", "O", "P", "Q", "R",
+    "S", "T", "U", "V", "W", "X", "Y", "Z", "0",
+    "1", "2", "3", "4", "5", "6", "7", "8", "9"];
+
+  drawCodeRings();
+}
+
+function drawCodeRings() {
+
+//   for (var i = 0; i < numRings; i++) {
+
+//     var positionX = (i - (numRings / 2)) * ringSpacing + (ringSpacing / 2);
+
+//     // Create backgrounds for each ring
+//     cylinders[i] = new Cylinder(materials[i], 200, 50, 108, 1, -1, false, false);
+//     cylinders[i].rotationZ = 90;
+//     cylinders[i].x = positionX;
+//     cylinders[i].z = 8;
+//     cylinders[i].name = "cylinder" + String(i + 1);
+//     cylinders[i].addEventListener(InteractiveScene3DEvent.OBJECT_PRESS, objectPressHandler);
+//     scene.addChild(cylinders[i]);
+
+//     // Create arrays for each ring
+//     codeChars[i] = [];
+//     codeTexts[i] = [];
+//     codeArray[i] = [];
+//     textMaterials[i] = [];
+
+//     rings[i] = new DisplayObject3D();
+//     rings[i] = drawRing(i);
+//     rings[i].x = positionX;
+//     rings[i].name = "ring" + String(i + 1);
+//     scene.addChild(rings[i]);
+
+//   }
+
+}
+
+function drawRing(ringIndex) {
+//   var ring = new DisplayObject3D();
+
+//   for (var i = 0; i < strings.length; i++) {
+
+//     textMaterials[ringIndex][i] = new Letter3DMaterial(0x000000, 0.5);
+
+//     text3D[i] = new Text3D(strings[i], font3D, textMaterials[ringIndex][i]);
+//     text3D[i].scale = .25;
+//     text3D[i].z = -200;
+//     text3D[i].name = "ring" + String(ringIndex + 1) + "text" + String(i + 1);
+
+//     // containers as pivot point for characters
+//     chars[i] = new DisplayObject3D();
+//     chars[i].addChild(text3D[i]);
+//     chars[i].rotationX = -(i * 360 / strings.length);
+//     chars[i].name = "ring" + String(ringIndex + 1) + "char" + String(i + 1);
+
+//     // an array to be able to access children by index
+//     codeChars[ringIndex][i] = chars[i];
+//     codeTexts[ringIndex][i] = text3D[i];
+
+//     ring.addChild(chars[i]);
+//   }
+
+//   return ring;
+}
+
+// // --------------------------------------
+// // Keyboard input functions
+// // --------------------------------------
+
+// private function trackKeyboardInput():void {
+//   displayCode();
+//   initCodeArray();
+//   displayCodeArray();
+//   showCodeCharSelected();
+//   addKeyPressListeners();
+// }
+
+// private function displayCode():void {
+//   var tf:TextFormat = codeFormat;
+//   tf.size = 20;
+//   tf.letterSpacing = 8;
+//   tf.align = TextFormatAlign.CENTER;
+//   tf.color = 0x000000;
+
+//   var tfSelected:TextFormat = charSelectedFormat;
+//   tfSelected.size = tf.size;
+//   tfSelected.letterSpacing = tf.letterSpacing;
+//   tfSelected.align = tf.align;
+//   tfSelected.color = 0xff0000;
+
+//   code = new TextField();
+//   code.autoSize = TextFieldAutoSize.CENTER;
+//   code.defaultTextFormat = tf;
+//   code.x = sw / 2;
+//   code.y = sh / 2 - 150;
+//   code.text = hint;
+//   code.selectable = false;
+//   addChild(code);
+// }
+
+// private function initCodeArray():void {
+//   for (var i:int = 0; i < hint.length; i++) {
+//     if (hint.charAt(i) == " ") {
+//       codeArray[i][0] = 36;
+//       codeArray[i][1] = " ";
+//     } else {
+//       for (var j:int = 0; j < strings.length; j++) {
+//         if (hint.charAt(i) == strings[j]) {
+//           codeArray[i][0] = j;
+//         }
+//       }
+//       codeArray[i][1] = hint.charAt(i);
+//     }
+//   }
+// }
+
+// private function displayCodeArray():void {
+//   code.text = "";
+//   for (var i:uint = 0; i < codeArray.length; i++) {
+//     // replace spaces with underscores
+//     if (codeArray[i][1] == " ") {
+//       code.appendText("_");
+//     }
+//     // otherwise display each character
+//     else code.appendText(codeArray[i][1]);
+//   }
+//   // test whether the code has been solved
+//   testCode();
+// }
+
+// private function addKeyPressListeners():void {
+//   stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyPress);
+// }
+
+// private function onKeyPress(e:KeyboardEvent):void {
+
+//   key = e.keyCode;
+
+//   // Capital letters A - Z are character codes 65 - 90
+//   if (key >= 65 && key <= 90) {
+//     var i:uint = key - 65;
+
+//     inputMode = "enter";
+//     charSelected = i;
+//     replaceCodeChar(e);
+//   }
+
+//   // Numbers 0 - 9 are character codes 48 - 57
+//   else if (key >= 48 && key <= 57) {
+//     var j:uint = key - 48 + 26;
+
+//     inputMode = "enter";
+//     charSelected = j;
+//     replaceCodeChar(e);
+//   }
+
+//   // All other key presses are caught here
+//   else {
+//     switch (e.keyCode) {
+//       case Keyboard.BACKSPACE:
+//         inputMode = "delete";
+//         charSelected = 36;
+//         replaceCodeChar(e);
+//         break;
+//       case Keyboard.LEFT:
+//         inputMode = "select";
+//         selectPreviousRing();
+//         break;
+//       case Keyboard.RIGHT:
+//         inputMode = "select";
+//         selectNextRing();
+//         break;
+//       case Keyboard.UP:
+//         inputMode = "enter";
+//         ringUp();
+//         break;
+//       case Keyboard.DOWN:
+//         inputMode = "enter";
+//         ringDown();
+//         break;
+//       default:
+//         // trace("Not a valid keyboard input");
+//     }
+//   }
+
+//   // traceKeyPresses(e);
+// }
+
+// private function replaceCodeChar(e:KeyboardEvent):void {
+//   // if first character of code is empty,
+//   // don't play sound on backspace
+//   if (inputMode == "delete" && ringSelected == 0 && codeArray[0][0] == 36) {}
+//   else playSound(_typewriter);
+
+//   // Store selected character into code array
+//   var char:String = String.fromCharCode(e.keyCode);
+//   codeArray[ringSelected][0] = charSelected;
+
+//   // Replace selected character with space
+//   if (inputMode == "delete") {
+//     codeArray[ringSelected][1] = "_";
+//   }
+//   // Otherwise replace with selected character
+//   else codeArray[ringSelected][1] = char;
+
+//   displayRingCharSelected();
+//   displayCodeArray();
+//   selectRing();
+//   showCodeCharSelected();
+// }
+
+// private function updateCodeChar():void {
+//   var char:String = strings[charSelected];
+
+//   // update if the selected character has changed
+//   if (charSelected != codeArray[ringSelected][0]) {
+//     codeArray[ringSelected][0] = charSelected;
+//     codeArray[ringSelected][1] = char;
+
+//     displayCodeArray();
+//     resetChars(ringSelected);
+//     displayCharSelected();
+//     updateRingRotation(ringSelected);
+//     showCodeCharSelected();
+
+//     playSound(_click, .1);
+//   }
+// }
+
+// private function traceKeyPresses(e:KeyboardEvent):void {
+//   trace("------------ traceKeyPresses ------------");
+//   trace("Keycode: " + e.keyCode);
+//   trace("Character Code: " + e.charCode);
+//   trace("Character: " + String.fromCharCode(e.charCode));
+//   trace("Character (Caps): " + String.fromCharCode(e.keyCode));
+// }
+
+// private function showCodeCharSelected():void {
+//   code.setTextFormat(codeFormat);
+//   if (success) {} else code.setTextFormat(charSelectedFormat, ringSelected, ringSelected + 1);
+// }
+
+// private function focusCodeCharSelection():void {
+//   // display selected character
+//   code.setSelection(ringSelected, ringSelected + 1);
+//   code.alwaysShowSelection = true;
+//   code.stage.focus = code;
+// }
+
+
+// // --------------------------------------
+// // Test for Cryptex solution
+// // --------------------------------------
+
+// private function testCode():void {
+//   if (code.text == solution) {
+//     success = true;
+//     dispatchEvent(new Event(SOLVED));
+//     successfullyDecoded();
+//   }
+// }
+
+// private function successfullyDecoded():void {
+//   removeChild(hintMessages);
+//   stage.removeEventListener(KeyboardEvent.KEY_DOWN, onKeyPress);
+//   highlightAllRings();
+//   displaySuccessMessage();
+
+//   _musicChannel.stop();
+//   playSound(_dreams);
+// }
+
+// private function displaySuccessMessage():void {
+//   codeFormat.letterSpacing = 0;
+//   code.setTextFormat(codeFormat);
+//   code.text = "CONGRATULATIONS, YOU HAVE UNLOCKED THE CRYPTEX";
+// }
+
+
+// // --------------------------------------
+// // Ring functions
+// // --------------------------------------
+
+// private function rotateRing():void {
+//   var targetRotation:Number = codeArray[ringSelected][0] * 360 / strings.length;
+//   TweenLite.to( rings[ringSelected], 1, { rotationX:targetRotation, ease:Strong.easeOut } );
+// }
+
+// private function rotateCryptexRings(ringNum:uint):void {
+//   var targetRotation:Number = codeArray[ringNum][0] * 360 / strings.length;
+//   TweenLite.to( rings[ringNum], 1, { rotationX:targetRotation, ease:Strong.easeOut } );
+// }
+
+// private function updateRingRotation(ringNum:uint):void {
+//   var targetRotation:Number = codeArray[ringNum][0] * 360 / strings.length;
+//   // rings[ringNum].rotationX = targetRotation;
+//   TweenLite.to( rings[ringNum], .01, { rotationX:targetRotation, ease:Strong.easeOut } );
+// }
+
+// private function selectRing():void {
+//   // select ring after replacing character
+//   if (inputMode == "enter") {
+//     selectNextRing();
+//   } else if (inputMode == "delete") {
+//     selectPreviousRing();
+//   }
+// }
+
+// private function selectPreviousRing():void {
+//   if (ringSelected > 0) {
+//     if (inputMode == "select") {
+//       playSound(_click, .1);
+//     }
+//     ringLastSelected = ringSelected;
+//     ringSelected --;
+//     displayRingCharSelected();
+//     showCodeCharSelected();
+//   }
+// }
+
+// private function selectNextRing():void {
+//   if (ringSelected < numRings - 1) {
+//     if (inputMode == "select") {
+//       playSound(_click, .1);
+//     }
+//     ringLastSelected = ringSelected;
+//     ringSelected ++;
+//     displayRingCharSelected();
+//     showCodeCharSelected();
+//   }
+// }
+
+// private function ringUp():void {
+//   var ringRotation:Number = rings[ringSelected].rotationX - 10;
+//   ringRotation %= 360;
+//   rings[ringSelected].rotationX = stepRotation(ringRotation);
+
+//   updateCodeChar();
+// }
+
+// private function ringDown():void {
+//   var ringRotation:Number = rings[ringSelected].rotationX + 10;
+//   ringRotation %= 360;
+//   rings[ringSelected].rotationX = stepRotation(ringRotation);
+
+//   updateCodeChar();
+// }
+
+// private function pressRingSelected():void {
+//   deselectRingLastSelected();
+//   cylinders[ringSelected].material = ringMaterialActive;
+//   showCodeCharSelected();
+// }
+
+// private function displayRingSelected():void {
+//   resetRingLastSelected();
+//   cylinders[ringSelected].material = ringMaterialActive;
+// }
+
+// private function displayRingCharSelected():void {
+//   deselectRingLastSelected();
+//   cylinders[ringSelected].material = ringMaterialActive;
+//   rotateRing();
+//   resetChars(ringSelected);
+//   displayCharSelected();
+// }
+
+// private function displayCharSelected():void {
+//   if (codeArray[ringSelected][0] != 36) {
+//     var charNum:uint = codeArray[ringSelected][0];
+//     var char:DisplayObject3D = codeChars[ringSelected][charNum];
+//     var txt:Text3D = codeTexts[ringSelected][charNum];
+//     txt.scale = 0.3;
+//     txt.material.copy(textMaterialActive);
+//   }
+// }
+
+// private function displayCryptexChars(ringNum:uint):void {
+//   if (codeArray[ringNum][0] != 36) {
+//     var charNum:uint = codeArray[ringNum][0];
+//     var char:DisplayObject3D = codeChars[ringNum][charNum];
+//     var txt:Text3D = codeTexts[ringNum][charNum];
+//     txt.scale = 0.3;
+//     txt.material.copy(textMaterialActive);
+//   }
+// }
+
+// private function deselectRingLastSelected():void {
+//   cylinders[ringLastSelected].material = ringMaterial;
+//   ringLastSelected = ringSelected;
+// }
+
+// private function resetRingLastSelected():void {
+//   cylinders[ringSelected].material = ringMaterial;
+//   resetChars(ringLastSelected);
+//   ringLastSelected = ringSelected;
+// }
+
+// private function resetChars(ringNum:uint):void {
+//   for (var i:uint = 0; i < strings.length; i++) {
+//     var char:DisplayObject3D = codeChars[ringNum][i];
+//     var txt:Text3D = codeTexts[ringNum][i];
+//     txt.scale = 0.25;
+//     txt.material.copy(textMaterial);
+//   }
+// }
+
+// private function resetAllRings():void {
+//   for (var i:uint = 0; i < numRings; i++) {
+//     cylinders[i].material = ringMaterial;
+//   }
+// }
+
+// private function highlightAllRings():void {
+//   for (var i:uint = 0; i < numRings; i++) {
+//     cylinders[i].material = ringMaterialActive;
+//   }
+// }
+
+
+// // --------------------------------------
+// // Mouse functions
+// // --------------------------------------
+
+// private function addMouseEventListeners():void {
+//   stage.addEventListener(MouseEvent.MOUSE_DOWN, stage_mouseDownHandler);
+//   stage.addEventListener(MouseEvent.MOUSE_UP, stage_mouseUpHandler);
+// }
+
+// private function stage_mouseDownHandler(event:MouseEvent):void {
+//   isMouseDown = true;
+//   initMouseY = mouseY;
+//   ringSelectedInitRotation = rings[ringSelected].rotationX;
+
+// }
+
+// private function stage_mouseUpHandler(event:MouseEvent):void {
+//   isMouseDown = false;
+//   dragRing = false;
+// }
+
+// private function objectPressHandler(event:InteractiveScene3DEvent):void {
+//   var thisObject:DisplayObject3D = event.displayObject3D;
+//   var num:uint = Number(thisObject.name.substr(8));
+
+//   dragRing = true;
+//   playSound(_stone, .3);
+
+//   ringLastSelected = ringSelected;
+//   ringSelected = num - 1;
+//   pressRingSelected();
+// }
+
+// private function dragRings():void {
+//   var currentMouseY:Number = mouseY;
+
+//   if(isMouseDown && dragRing)
+//   {
+//     var differenceY:Number = currentMouseY - initMouseY;
+//     var ringSelectedRotation:Number = ringSelectedInitRotation - (differenceY * .6);
+
+//     // step rotation
+//     rings[ringSelected].rotationX = stepRotation(ringSelectedRotation);
+
+//     updateCodeChar();
+//   }
+
+//   previousMouseY = currentMouseY;
+// }
+
+// private function stepRotation(objRotation:Number):Number {
+//   // modulo operator to keep rotation in the -360 to 360 degree range
+//   objRotation %= 360;
+
+//   // ensure rotation is always expressed as uint: 0 to 360 degrees
+//   if (objRotation < 0) {
+//     objRotation = 360 + Math.round(objRotation);
+//   }
+
+//   var numRingChars:uint = strings.length;
+//   var degreesPerChar:Number = 360 / numRingChars;
+//   var charIndex:uint = Math.round(objRotation / degreesPerChar);
+//   var targetRotation:Number = degreesPerChar * charIndex;
+
+//   // keep charSelected within the range of available characters
+//   if (charIndex < numRingChars) charSelected = charIndex;
+//   else charSelected = 0;
+
+//   return targetRotation;
+// }
+
+
+// // --------------------------------------
+// // Hints
+// // --------------------------------------
+
+// private function displayHints():void {
+//   hintMessages = new CryptexHints();
+//   hintMessages.x = (sw - hintMessages.width) / 2 + 25;
+//   hintMessages.y = sh / 2 - 125;
+//   addChild(hintMessages);
+// }
+
+
+
+
+// Keyboard events from Pomodoro Clock
+function init() {
+  for (var i = 0; i < buttons.length; i++) {
+    var button = buttons[i];
+    button.addEventListener("click", function( event ) {
+      getInput(this);
+    });
+  }
+  keyboard();
+}
+
+function inputType(button) {
+  var id = button.id;
+  type = id;
+  return type;
+}
+
+function getInput(button) {
+  switch (inputType(button)) {
+    case "start_stop":
+      startStop();
+      break;
+    case "reset":
+      reset();
+      break;
+    case "session-increment":
+      changeSession(1);
+      break;
+    case "session-decrement":
+      changeSession(-1);
+      break;
+    case "break-increment":
+      changeBreak(1);
+      break;
+    case "break-decrement":
+      changeBreak(-1);
+  }
+}
+
+function keyboard() {
+  keyboardEvents("keydown");
+  keyboardEvents("keyup");
+}
+
+function keyboardEvents(keyEvent) {
+  document.addEventListener(keyEvent, function (event) {
+    if (event.defaultPrevented) {
+      return;
+    }
+    var key = event.key || event.keyCode;
+
+    for (var i = 0; i < buttons.length; i++) {
+      var button = buttons[i];
+      if (button.dataset.key == key) {
+        handleKeyboardEvent(button, keyEvent);
+      }
+    }
+  });
+}
+
+function handleKeyboardEvent(button, keyEvent) {
+  if (keyEvent == "keydown") {
+    button.classList.add("select");
+    getInput(button);
+  }
+  if (keyEvent == "keyup") {
+    button.classList.remove("select");
+  }
+}
+
+// Class functions from Webkit
+// https://webkit.org/blog-files/3d-transforms/morphing-cubes.html
+
+function hasClassName(inElement, inClassName)
+{
+    var regExp = new RegExp('(?:^|\\s+)' + inClassName + '(?:\\s+|$)');
+    return regExp.test(inElement.className);
+}
+
+function addClassName(inElement, inClassName)
+{
+    if (!hasClassName(inElement, inClassName))
+        inElement.className = [inElement.className, inClassName].join(' ');
+}
+
+function removeClassName(inElement, inClassName)
+{
+    if (hasClassName(inElement, inClassName)) {
+        var regExp = new RegExp('(?:^|\\s+)' + inClassName + '(?:\\s+|$)', 'g');
+        var curClasses = inElement.className;
+        inElement.className = curClasses.replace(regExp, ' ');
+    }
+}
+
+function toggleClassName(inElement, inClassName)
+{
+    if (hasClassName(inElement, inClassName))
+        removeClassName(inElement, inClassName);
+    else
+        addClassName(inElement, inClassName);
+}
