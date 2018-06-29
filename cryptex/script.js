@@ -175,7 +175,6 @@ function drawRing(ringIndex, positionX) {
 
   ring.id = 'ring' + (ringIndex + 1);
   ring.className = 'ring backfaces';
-  // ring.style.left = positionX + 'px';
 
   for (var i = 0; i < strings.length; i++) {
 
