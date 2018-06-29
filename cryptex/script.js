@@ -193,11 +193,11 @@ function drawRing(ringIndex, positionX) {
     }
 
     // add plane to chars array
-    // chars[i] = plane;
+    chars[i] = plane;
 
     // an array to be able to access children by index
-    // codeChars[ringIndex][i] = chars[i];
-    // codeTexts[ringIndex][i] = text3D[i];
+    codeChars[ringIndex][i] = plane;
+    codeTexts[ringIndex][i] = char;
 
     ring.appendChild(plane);
   }
