@@ -23,7 +23,8 @@ var vh;
 
 var container = document.getElementById('container');
 var stage = document.getElementById('stage');
-var shape = document.getElementById('shape');
+var obj = document.getElementById('object');
+var ring = document.getElementById('ring1');
 
 
 // --------------------------------------
@@ -31,7 +32,8 @@ var shape = document.getElementById('shape');
 // --------------------------------------
 
 var numRings = 12;
-var ringSpacing = 100;
+var ringWidth = 36;
+var ringSpacing = 60;
 
 var strings = [];
 var numbers = {};
@@ -98,8 +100,8 @@ function initialize() {
   sw = stg.innerWidth;
   sh = stg.innerHeight;
 
-  // remove shape from stage
-  shape.remove();
+  // remove ring from object
+  ring.remove();
 
   initializeRings();
 
@@ -144,26 +146,16 @@ function drawCodeRings() {
 
   for (var i = 0; i < numRings; i++) {
 
-    var positionX = (i - (numRings / 2)) * ringSpacing + (ringSpacing / 2);
-
-    // Create backgrounds for each ring
-    // cylinders[i] = new Cylinder(materials[i], 200, 50, 108, 1, -1, false, false);
-    // cylinders[i].rotationZ = 90;
-    // cylinders[i].x = positionX;
-    // cylinders[i].z = 8;
-    // cylinders[i].name = "cylinder" + String(i + 1);
-    // cylinders[i].addEventListener(InteractiveScene3DEvent.OBJECT_PRESS, objectPressHandler);
-    // scene.addChild(cylinders[i]);
+    var positionX = i * ringSpacing;
 
     // Create arrays for each ring
-    // codeChars[i] = [];
-    // codeTexts[i] = [];
-    // codeArray[i] = [];
-    // textMaterials[i] = [];
+    codeChars[i] = [];
+    codeTexts[i] = [];
+    codeArray[i] = [];
 
     rings[i] = drawRing(i, positionX);
     rings[i].name = "ring" + String(i + 1);
-    stage.appendChild(rings[i]);
+    obj.appendChild(rings[i]);
 
   }
 
