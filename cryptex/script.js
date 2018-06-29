@@ -106,6 +106,8 @@ function initialize() {
 
   initializeRings();
 
+  formatCode();
+
   trackKeyboardInput();
   // displayRingSelected();
   // initializeCryptexRings();
@@ -210,6 +212,22 @@ function lookupNumber(num) {
   return numbers[num];
 }
 
+
+// --------------------------------------
+// Display Code
+// --------------------------------------
+
+function formatCode() {
+  displayCode.innerText = '';
+  for (var i = 0; i < hint.length; i++) {
+    var codeChar = document.createElement('span');
+    codeChar.className = "char";
+    codeChar.setAttribute('data-index', i);
+    codeChar.innerText = "_";
+    displayCode.appendChild(codeChar);
+  }
+}
+
 // --------------------------------------
 // Keyboard input functions
 // --------------------------------------
@@ -238,7 +256,6 @@ function initCodeArray() {
 }
 
 function displayCodeArray() {
-  var code = "";
   for (var i = 0; i < codeArray.length; i++) {
     // replace spaces with underscores
     if (codeArray[i][1] == " ") {
