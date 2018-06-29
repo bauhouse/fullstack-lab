@@ -23,6 +23,7 @@ var vh;
 
 var container = document.getElementById('container');
 var stage = document.getElementById('stage');
+var displayCode = document.getElementById('code');
 var obj = document.getElementById('object');
 var ring = document.getElementById('ring1');
 
@@ -105,7 +106,7 @@ function initialize() {
 
   initializeRings();
 
-  // trackKeyboardInput();
+  trackKeyboardInput();
   // displayRingSelected();
   // initializeCryptexRings();
   // addMouseEventListeners();
@@ -209,151 +210,127 @@ function lookupNumber(num) {
   return numbers[num];
 }
 
-// // --------------------------------------
-// // Keyboard input functions
-// // --------------------------------------
+// --------------------------------------
+// Keyboard input functions
+// --------------------------------------
 
-// private function trackKeyboardInput():void {
-//   displayCode();
-//   initCodeArray();
-//   displayCodeArray();
-//   showCodeCharSelected();
-//   addKeyPressListeners();
-// }
+function trackKeyboardInput() {
+  initCodeArray();
+  displayCodeArray();
+  // showCodeCharSelected();
+  addKeyPressListeners();
+}
 
-// private function displayCode():void {
-//   var tf:TextFormat = codeFormat;
-//   tf.size = 20;
-//   tf.letterSpacing = 8;
-//   tf.align = TextFormatAlign.CENTER;
-//   tf.color = 0x000000;
+function initCodeArray() {
+  for (var i = 0; i < hint.length; i++) {
+    if (hint.charAt(i) == " ") {
+      codeArray[i][0] = 36;
+      codeArray[i][1] = " ";
+    } else {
+      for (var j = 0; j < strings.length; j++) {
+        if (hint.charAt(i) == strings[j]) {
+          codeArray[i][0] = j;
+        }
+      }
+      codeArray[i][1] = hint.charAt(i);
+    }
+  }
+}
 
-//   var tfSelected:TextFormat = charSelectedFormat;
-//   tfSelected.size = tf.size;
-//   tfSelected.letterSpacing = tf.letterSpacing;
-//   tfSelected.align = tf.align;
-//   tfSelected.color = 0xff0000;
+function displayCodeArray() {
+  var code = "";
+  for (var i = 0; i < codeArray.length; i++) {
+    // replace spaces with underscores
+    if (codeArray[i][1] == " ") {
+      code = "_";
+    }
+    // otherwise display each character
+    else code = codeArray[i][1];
+  }
+  // test whether the code has been solved
+  testCode();
+}
 
-//   code = new TextField();
-//   code.autoSize = TextFieldAutoSize.CENTER;
-//   code.defaultTextFormat = tf;
-//   code.x = sw / 2;
-//   code.y = sh / 2 - 150;
-//   code.text = hint;
-//   code.selectable = false;
-//   addChild(code);
-// }
+function addKeyPressListeners() {
+  document.addEventListener('keyup', onKeyPress);
+}
 
-// private function initCodeArray():void {
-//   for (var i:int = 0; i < hint.length; i++) {
-//     if (hint.charAt(i) == " ") {
-//       codeArray[i][0] = 36;
-//       codeArray[i][1] = " ";
-//     } else {
-//       for (var j:int = 0; j < strings.length; j++) {
-//         if (hint.charAt(i) == strings[j]) {
-//           codeArray[i][0] = j;
-//         }
-//       }
-//       codeArray[i][1] = hint.charAt(i);
-//     }
-//   }
-// }
+function onKeyPress(e) {
 
-// private function displayCodeArray():void {
-//   code.text = "";
-//   for (var i:uint = 0; i < codeArray.length; i++) {
-//     // replace spaces with underscores
-//     if (codeArray[i][1] == " ") {
-//       code.appendText("_");
-//     }
-//     // otherwise display each character
-//     else code.appendText(codeArray[i][1]);
-//   }
-//   // test whether the code has been solved
-//   testCode();
-// }
+  key = e.keyCode;
 
-// private function addKeyPressListeners():void {
-//   stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyPress);
-// }
+  // Capital letters A - Z are character codes 65 - 90
+  if (key >= 65 && key <= 90) {
+    var i = key - 65;
 
-// private function onKeyPress(e:KeyboardEvent):void {
+    inputMode = "enter";
+    charSelected = i;
+    replaceCodeChar(e);
+  }
 
-//   key = e.keyCode;
+  // Numbers 0 - 9 are character codes 48 - 57
+  else if (key >= 48 && key <= 57) {
+    var j = key - 48 + 26;
 
-//   // Capital letters A - Z are character codes 65 - 90
-//   if (key >= 65 && key <= 90) {
-//     var i:uint = key - 65;
+    inputMode = "enter";
+    charSelected = j;
+    replaceCodeChar(e);
+  }
 
-//     inputMode = "enter";
-//     charSelected = i;
-//     replaceCodeChar(e);
-//   }
+  // All other key presses are caught here
+  else {
+    switch (e.keyCode) {
+      case Keyboard.BACKSPACE:
+        inputMode = "delete";
+        charSelected = 36;
+        replaceCodeChar(e);
+        break;
+      case Keyboard.LEFT:
+        inputMode = "select";
+        selectPreviousRing();
+        break;
+      case Keyboard.RIGHT:
+        inputMode = "select";
+        selectNextRing();
+        break;
+      case Keyboard.UP:
+        inputMode = "enter";
+        ringUp();
+        break;
+      case Keyboard.DOWN:
+        inputMode = "enter";
+        ringDown();
+        break;
+      default:
+        console.log("Not a valid keyboard input");
+    }
+  }
 
-//   // Numbers 0 - 9 are character codes 48 - 57
-//   else if (key >= 48 && key <= 57) {
-//     var j:uint = key - 48 + 26;
+  traceKeyPresses(e);
+}
 
-//     inputMode = "enter";
-//     charSelected = j;
-//     replaceCodeChar(e);
-//   }
+function replaceCodeChar(e) {
+  // if first character of code is empty,
+  // don't play sound on backspace
+  // if (inputMode == "delete" && ringSelected == 0 && codeArray[0][0] == 36) {}
+  // else playSound(_typewriter);
 
-//   // All other key presses are caught here
-//   else {
-//     switch (e.keyCode) {
-//       case Keyboard.BACKSPACE:
-//         inputMode = "delete";
-//         charSelected = 36;
-//         replaceCodeChar(e);
-//         break;
-//       case Keyboard.LEFT:
-//         inputMode = "select";
-//         selectPreviousRing();
-//         break;
-//       case Keyboard.RIGHT:
-//         inputMode = "select";
-//         selectNextRing();
-//         break;
-//       case Keyboard.UP:
-//         inputMode = "enter";
-//         ringUp();
-//         break;
-//       case Keyboard.DOWN:
-//         inputMode = "enter";
-//         ringDown();
-//         break;
-//       default:
-//         // trace("Not a valid keyboard input");
-//     }
-//   }
+  // Store selected character into code array
+  var char = e.key;
+  codeArray[ringSelected][0] = charSelected;
 
-//   // traceKeyPresses(e);
-// }
+  // Replace selected character with space
+  if (inputMode == "delete") {
+    codeArray[ringSelected][1] = "_";
+  }
+  // Otherwise replace with selected character
+  else codeArray[ringSelected][1] = char;
 
-// private function replaceCodeChar(e:KeyboardEvent):void {
-//   // if first character of code is empty,
-//   // don't play sound on backspace
-//   if (inputMode == "delete" && ringSelected == 0 && codeArray[0][0] == 36) {}
-//   else playSound(_typewriter);
-
-//   // Store selected character into code array
-//   var char:String = String.fromCharCode(e.keyCode);
-//   codeArray[ringSelected][0] = charSelected;
-
-//   // Replace selected character with space
-//   if (inputMode == "delete") {
-//     codeArray[ringSelected][1] = "_";
-//   }
-//   // Otherwise replace with selected character
-//   else codeArray[ringSelected][1] = char;
-
-//   displayRingCharSelected();
-//   displayCodeArray();
-//   selectRing();
-//   showCodeCharSelected();
-// }
+  displayRingCharSelected();
+  displayCodeArray();
+  selectRing();
+  showCodeCharSelected();
+}
 
 // private function updateCodeChar():void {
 //   var char:String = strings[charSelected];
@@ -373,13 +350,13 @@ function lookupNumber(num) {
 //   }
 // }
 
-// private function traceKeyPresses(e:KeyboardEvent):void {
-//   trace("------------ traceKeyPresses ------------");
-//   trace("Keycode: " + e.keyCode);
-//   trace("Character Code: " + e.charCode);
-//   trace("Character: " + String.fromCharCode(e.charCode));
-//   trace("Character (Caps): " + String.fromCharCode(e.keyCode));
-// }
+function traceKeyPresses(e) {
+  console.log("------------ traceKeyPresses ------------");
+  console.log("Keycode: " + e.keyCode);
+  console.log("Character Code: " + e.charCode);
+  console.log("Character: " + String.fromCharCode(e.charCode));
+  console.log("Character (Caps): " + String.fromCharCode(e.keyCode));
+}
 
 // private function showCodeCharSelected():void {
 //   code.setTextFormat(codeFormat);
@@ -394,17 +371,18 @@ function lookupNumber(num) {
 // }
 
 
-// // --------------------------------------
-// // Test for Cryptex solution
-// // --------------------------------------
+// --------------------------------------
+// Test for Cryptex solution
+// --------------------------------------
 
-// private function testCode():void {
-//   if (code.text == solution) {
-//     success = true;
-//     dispatchEvent(new Event(SOLVED));
-//     successfullyDecoded();
-//   }
-// }
+function testCode() {
+  if (code == solution) {
+    success = true;
+    alert("SOLVED");
+    // dispatchEvent(new Event(SOLVED));
+    // successfullyDecoded();
+  }
+}
 
 // private function successfullyDecoded():void {
 //   removeChild(hintMessages);
@@ -690,7 +668,7 @@ function getInput(button) {
 }
 
 function keyboard() {
-  keyboardEvents("keydown");
+  // keyboardEvents("keydown");
   keyboardEvents("keyup");
 }
 
@@ -702,21 +680,21 @@ function keyboardEvents(keyEvent) {
     var key = event.key || event.keyCode;
 
     for (var i = 0; i < buttons.length; i++) {
-      var button = buttons[i];
-      if (button.dataset.key == key) {
-        handleKeyboardEvent(button, keyEvent);
-      }
+      // var button = buttons[i];
+      // if (button.dataset.key == key) {
+      //   handleKeyboardEvent(button, keyEvent);
+      // }
     }
   });
 }
 
 function handleKeyboardEvent(button, keyEvent) {
   if (keyEvent == "keydown") {
-    button.classList.add("select");
-    getInput(button);
+    // button.classList.add("select");
+    // getInput(button);
   }
   if (keyEvent == "keyup") {
-    button.classList.remove("select");
+    // button.classList.remove("select");
   }
 }
 
