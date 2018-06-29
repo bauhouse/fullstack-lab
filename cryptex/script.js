@@ -545,12 +545,12 @@ function displaySelectRingElement() {
 }
 
 function deselectRingLastSelected() {
-  // cylinders[ringLastSelected].material = ringMaterial;
+  removeClassName(ringElements[ringLastSelected], 'select');
   ringLastSelected = ringSelected;
 }
 
 function resetRingLastSelected() {
-  // cylinders[ringSelected].material = ringMaterial;
+  removeClassName(ringElements[ringSelected], 'select');
   resetChars(ringLastSelected);
   ringLastSelected = ringSelected;
 }
@@ -559,22 +559,20 @@ function resetChars(ringNum) {
   for (var i = 0; i < strings.length; i++) {
     var char = codeChars[ringNum][i];
     var txt = codeTexts[ringNum][i];
-    // txt.scale = 0.25;
-    // txt.material.copy(textMaterial);
   }
 }
 
-// private function resetAllRings():void {
-//   for (var i:uint = 0; i < numRings; i++) {
-//     cylinders[i].material = ringMaterial;
-//   }
-// }
+function resetAllRings() {
+  for (var i = 0; i < numRings; i++) {
+    removeClassName(ringElements[i], 'select');
+  }
+}
 
-// private function highlightAllRings():void {
-//   for (var i:uint = 0; i < numRings; i++) {
-//     cylinders[i].material = ringMaterialActive;
-//   }
-// }
+function highlightAllRings() {
+  for (var i = 0; i < numRings; i++) {
+    addClassName(ringElements[i], 'select');
+  }
+}
 
 
 // // --------------------------------------
