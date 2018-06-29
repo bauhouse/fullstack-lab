@@ -305,7 +305,7 @@ function onKeyPress(e) {
     switch (e.keyCode) {
       case 8:
         inputMode = "delete";
-        charSelected = 8;
+        charSelected = 0;
         replaceCodeChar(e);
         break;
       case 37:
