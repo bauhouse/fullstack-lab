@@ -544,16 +544,6 @@ function displaySelectRingElement() {
   // console.log(charElements);
 }
 
-// private function displayCryptexChars(ringNum:uint):void {
-//   if (codeArray[ringNum][0] != 36) {
-//     var charNum:uint = codeArray[ringNum][0];
-//     var char:DisplayObject3D = codeChars[ringNum][charNum];
-//     var txt:Text3D = codeTexts[ringNum][charNum];
-//     txt.scale = 0.3;
-//     txt.material.copy(textMaterialActive);
-//   }
-// }
-
 function deselectRingLastSelected() {
   // cylinders[ringLastSelected].material = ringMaterial;
   ringLastSelected = ringSelected;
