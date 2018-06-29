@@ -428,17 +428,24 @@ function displaySuccessMessage() {
 function rotateRing() {
   var targetRotation = codeArray[ringSelected][0] * 360 / strings.length;
   // TweenLite.to( rings[ringSelected], 1, { rotationX:targetRotation, ease:Strong.easeOut } );
+  console.log(targetRotation);
+  ringElements[ringSelected].style.transform = 'rotateX(' + targetRotation + 'deg)';
+  console.log(ringElements[ringSelected]);
 }
 
 function rotateCryptexRings(ringNum) {
   var targetRotation = codeArray[ringNum][0] * 360 / strings.length;
   // TweenLite.to( rings[ringNum], 1, { rotationX:targetRotation, ease:Strong.easeOut } );
+  console.log(targetRotation);
+  ringElements[ringSelected].style.transform = 'rotateX(' + targetRotation + 'deg)';
 }
 
 function updateRingRotation(ringNum) {
   var targetRotation = codeArray[ringNum][0] * 360 / strings.length;
   rings[ringNum].rotationX = targetRotation;
   // TweenLite.to( rings[ringNum], .01, { rotationX:targetRotation, ease:Strong.easeOut } );
+  console.log(targetRotation);
+  ringElements[ringSelected].style.transform = 'rotateX(' + targetRotation + 'deg)';
 }
 
 function selectRing() {
