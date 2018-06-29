@@ -577,14 +577,13 @@ function addMouseEventListeners() {
   window.addEventListener('mousemove', stage_mouseMoveHandler);
   window.addEventListener('mousedown', stage_mouseDownHandler);
   window.addEventListener('mouseup', stage_mouseUpHandler);
-  window.addEventListener('mousewheel', mouseWheelHandler);
+  mouseWheelEvents();
 }
 
 function removeMouseEventListeners() {
   window.removeEventListener('mousemove', stage_mouseMoveHandler);
   window.removeEventListener('mousedown', stage_mouseDownHandler);
   window.removeEventListener('mouseup', stage_mouseUpHandler);
-  window.removeEventListener('mousewheel', mouseWheelHandler);
 }
 
 function stage_mouseMoveHandler(event) {
@@ -617,18 +616,28 @@ function objectPressHandler(event) {
   pressRingSelected();
 }
 
-function mouseWheelHandler(event) {
-  var event = window.event || event;
-  var delta = event.wheelDelta || -event.detail;
-  dragRing = true;
-  wheelRings(delta);
-  return false;
+function mouseWheelEvents() {
+  // Throttle wheel events
+  var timeout = 200;
+  var mouseWheelEvent = false;
+  window.addEventListener('mousewheel', event => {
+    if (!mouseWheelEvent) {
+      setTimeout(() => {
+        mouseWheelEvent = false;
+        wheelEventHandler(event.wheelDelta);
+      }, timeout);
+      mouseWheelEvent = true;
+    }
+  });
 }
 
-function wheelRings(delta) {
-  var ringSelectedRotation = ringSelectedInitRotation - (delta * 10);
-  rings[ringSelected].rotationX = stepRotation(ringSelectedRotation);
-  updateCodeChar();
+function wheelEventHandler(delta) {
+  if (delta < 0) {
+    ringDown();
+  }
+  if (delta > 0) {
+    ringUp();
+  }
 }
 
 function dragRings() {
