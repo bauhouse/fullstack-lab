@@ -18,7 +18,7 @@ var vh;
 
 
 // --------------------------------------
-// Document variables
+// DOM variables
 // --------------------------------------
 
 var container = document.getElementById('container');
