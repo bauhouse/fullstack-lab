@@ -158,7 +158,7 @@ function drawCodeRings() {
     // Create arrays for each ring
     codeChars[i] = [];
     codeTexts[i] = [];
-    codeArray[i] = [];
+    codeArray[i] = {};
 
     rings[i] = drawRing(i, positionX);
     rings[i].name = "ring" + String(i + 1);
@@ -247,15 +247,15 @@ function trackKeyboardInput() {
 function initCodeArray() {
   for (var i = 0; i < hint.length; i++) {
     if (hint.charAt(i) == " ") {
-      codeArray[i][0] = 36;
-      codeArray[i][1] = " ";
+      codeArray[i]['index'] = 36;
+      codeArray[i]['char'] = " ";
     } else {
       for (var j = 0; j < strings.length; j++) {
         if (hint.charAt(i) == strings[j]) {
-          codeArray[i][0] = j;
+          codeArray[i]['index'] = j;
         }
       }
-      codeArray[i][1] = hint.charAt(i);
+      codeArray[i]['char'] = hint.charAt(i);
     }
   }
 }
@@ -263,12 +263,12 @@ function initCodeArray() {
 function displayCodeArray() {
   for (var i = 0; i < codeArray.length; i++) {
     // replace spaces with underscores
-    if (codeArray[i][1] == " ") {
+    if (codeArray[i].char == " ") {
       charElements[i].innerText = "_";
     }
     // otherwise display each character
-    // else code = codeArray[i][1];
-    else charElements[i].innerText = codeArray[i][1];
+    // else code = codeArray[i].char;
+    else charElements[i].innerText = codeArray[i].char;
   }
   // test whether the code has been solved
   code = codeElement.innerText;
@@ -336,19 +336,19 @@ function onKeyPress(e) {
 function replaceCodeChar(e) {
   // if first character of code is empty,
   // don't play sound on backspace
-  // if (inputMode == "delete" && ringSelected == 0 && codeArray[0][0] == 36) {}
+  // if (inputMode == "delete" && ringSelected == 0 && codeArray[0].index == 36) {}
   // else playSound(_typewriter);
 
   // Store selected character into code array
-  var keyChar = String.fromCharCode(e.keyCode);
-  codeArray[ringSelected][0] = charSelected;
+  var char = String.fromCharCode(e.keyCode);
+  codeArray[ringSelected].index = charSelected;
 
   // Replace selected character with space
   if (inputMode == "delete") {
-    codeArray[ringSelected][1] = "_";
+    codeArray[ringSelected].char = "_";
   }
   // Otherwise replace with selected character
-  else codeArray[ringSelected][1] = keyChar;
+  else codeArray[ringSelected].char = char;
 
   displayRingCharSelected();
   displayCodeArray();
@@ -360,9 +360,9 @@ function updateCodeChar() {
   var char = strings[charSelected];
 
   // update if the selected character has changed
-  if (charSelected != codeArray[ringSelected][0]) {
-    codeArray[ringSelected][0] = charSelected;
-    codeArray[ringSelected][1] = char;
+  if (charSelected != codeArray[ringSelected].index) {
+    codeArray[ringSelected].index = charSelected;
+    codeArray[ringSelected].char = char;
 
     displayCodeArray();
     resetChars(ringSelected);
@@ -426,21 +426,21 @@ function displaySuccessMessage() {
 // --------------------------------------
 
 function rotateRing() {
-  var targetRotation = codeArray[ringSelected][0] * 360 / strings.length;
+  var targetRotation = codeArray[ringSelected].index * 360 / strings.length;
   ringElements[ringSelected].style.transform = 'rotateX(' + targetRotation + 'deg)';
   // console.log(targetRotation);
   // console.log(charSelected);
 }
 
 function rotateCryptexRings(ringNum) {
-  var targetRotation = codeArray[ringNum][0] * 360 / strings.length;
+  var targetRotation = codeArray[ringNum].index * 360 / strings.length;
   ringElements[ringSelected].style.transform = 'rotateX(' + targetRotation + 'deg)';
   // console.log(targetRotation);
   // console.log(charSelected);
 }
 
 function updateRingRotation(ringNum) {
-  var targetRotation = codeArray[ringNum][0] * 360 / strings.length;
+  var targetRotation = codeArray[ringNum].index * 360 / strings.length;
   rings[ringNum].rotationX = targetRotation;
   ringElements[ringSelected].style.transform = 'rotateX(' + targetRotation + 'deg)';
   // console.log(targetRotation);
@@ -518,8 +518,8 @@ function displayRingCharSelected() {
 }
 
 function displayCharSelected() {
-  if (codeArray[ringSelected][0] != 36) {
-    var charNum = codeArray[ringSelected][0];
+  if (codeArray[ringSelected].index != 36) {
+    var charNum = codeArray[ringSelected].index;
     var char = codeChars[ringSelected][charNum];
     var txt = codeTexts[ringSelected][charNum];
   }
