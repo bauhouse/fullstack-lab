@@ -23,7 +23,8 @@ var vh;
 
 var container = document.getElementById('container');
 var stage = document.getElementById('stage');
-var displayCode = document.getElementById('code');
+var codeElement = document.getElementById('code');
+var charElements = codeElement.getElementsByClassName('char');
 var obj = document.getElementById('object');
 var ring = document.getElementById('ring1');
 
@@ -218,7 +219,7 @@ function lookupNumber(num) {
 // --------------------------------------
 
 function formatCode() {
-  displayCode.innerText = '';
+  codeElement.innerText = '';
   for (var i = 0; i < hint.length; i++) {
     var codeChar = document.createElement('span');
     codeChar.className = 'char';
@@ -227,7 +228,7 @@ function formatCode() {
     }
     codeChar.setAttribute('data-index', i);
     codeChar.innerText = '_';
-    displayCode.appendChild(codeChar);
+    codeElement.appendChild(codeChar);
   }
 }
 
@@ -238,7 +239,7 @@ function formatCode() {
 function trackKeyboardInput() {
   initCodeArray();
   displayCodeArray();
-  // showCodeCharSelected();
+  showCodeCharSelected();
   addKeyPressListeners();
 }
 
@@ -348,8 +349,8 @@ function replaceCodeChar(e) {
 
   // displayRingCharSelected();
   displayCodeArray();
-  // selectRing();
-  // showCodeCharSelected();
+  selectRing();
+  showCodeCharSelected();
 }
 
 // private function updateCodeChar():void {
@@ -378,8 +379,11 @@ function traceKeyPresses(e) {
 }
 
 function showCodeCharSelected() {
-  code.setTextFormat(codeFormat);
-  if (success) {} else code.setTextFormat(charSelectedFormat, ringSelected, ringSelected + 1);
+  if (!success) {
+    selectCharElements();
+  }
+  // console.log("Show code character selected");
+  // console.log(code);
 }
 
 function focusCodeCharSelection() {
@@ -389,6 +393,16 @@ function focusCodeCharSelection() {
   // code.stage.focus = code;
 }
 
+function selectCharElements() {
+  for (var i = 0; i < charElements.length; i++) {
+    if (i == ringSelected) {
+      addClassName(charElements[i], 'selected');
+    } else {
+      removeClassName(charElements[i], 'selected');
+    }
+  }
+  // console.log(charElements);
+}
 
 // --------------------------------------
 // Test for Cryptex solution
@@ -440,38 +454,40 @@ function testCode() {
 //   TweenLite.to( rings[ringNum], .01, { rotationX:targetRotation, ease:Strong.easeOut } );
 // }
 
-// private function selectRing():void {
-//   // select ring after replacing character
-//   if (inputMode == "enter") {
-//     selectNextRing();
-//   } else if (inputMode == "delete") {
-//     selectPreviousRing();
-//   }
-// }
+function selectRing() {
+  // select ring after replacing character
+  if (inputMode == "enter") {
+    selectNextRing();
+  } else if (inputMode == "delete") {
+    selectPreviousRing();
+  }
+}
 
-// private function selectPreviousRing():void {
-//   if (ringSelected > 0) {
-//     if (inputMode == "select") {
-//       playSound(_click, .1);
-//     }
-//     ringLastSelected = ringSelected;
-//     ringSelected --;
-//     displayRingCharSelected();
-//     showCodeCharSelected();
-//   }
-// }
+function selectPreviousRing() {
+  if (ringSelected > 0) {
+    if (inputMode == "select") {
+      // playSound(_click, .1);
+    }
+    ringLastSelected = ringSelected;
+    ringSelected --;
+    // displayRingCharSelected();
+    showCodeCharSelected();
+  }
+  console.log("Select previous: " + ringSelected);
+}
 
-// private function selectNextRing():void {
-//   if (ringSelected < numRings - 1) {
-//     if (inputMode == "select") {
-//       playSound(_click, .1);
-//     }
-//     ringLastSelected = ringSelected;
-//     ringSelected ++;
-//     displayRingCharSelected();
-//     showCodeCharSelected();
-//   }
-// }
+function selectNextRing() {
+  if (ringSelected < numRings - 1) {
+    if (inputMode == "select") {
+      // playSound(_click, .1);
+    }
+    ringLastSelected = ringSelected;
+    ringSelected ++;
+    // displayRingCharSelected();
+    showCodeCharSelected();
+  }
+  console.log("Select next: " + ringSelected);
+}
 
 // private function ringUp():void {
 //   var ringRotation:Number = rings[ringSelected].rotationX - 10;
@@ -537,14 +553,14 @@ function resetRingLastSelected() {
   ringLastSelected = ringSelected;
 }
 
-// private function resetChars(ringNum:uint):void {
-//   for (var i:uint = 0; i < strings.length; i++) {
-//     var char:DisplayObject3D = codeChars[ringNum][i];
-//     var txt:Text3D = codeTexts[ringNum][i];
-//     txt.scale = 0.25;
-//     txt.material.copy(textMaterial);
-//   }
-// }
+function resetChars(ringNum) {
+  for (var i = 0; i < strings.length; i++) {
+    var char = codeChars[ringNum][i];
+    var txt = codeTexts[ringNum][i];
+    // txt.scale = 0.25;
+    // txt.material.copy(textMaterial);
+  }
+}
 
 // private function resetAllRings():void {
 //   for (var i:uint = 0; i < numRings; i++) {
