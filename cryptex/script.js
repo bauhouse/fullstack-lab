@@ -586,6 +586,12 @@ function addMouseEventListeners() {
   window.addEventListener('mouseup', stage_mouseUpHandler);
 }
 
+function removeMouseEventListeners() {
+  window.removeEventListener('mousemove', stage_mouseMoveHandler);
+  window.removeEventListener('mousedown', stage_mouseDownHandler);
+  window.removeEventListener('mouseup', stage_mouseUpHandler);
+}
+
 function stage_mouseMoveHandler(event) {
   mouseY = event ? event.pageY : window.event.clientY;
 }
