@@ -43,6 +43,14 @@ body {
   letter-spacing: .5em;
 }
 
+#code .selected {
+  color: red;
+}
+
+#code span:last-child {
+  letter-spacing: 0;
+}
+
 #object {
   position: relative;
   top: 50%;
