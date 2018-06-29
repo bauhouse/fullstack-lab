@@ -577,12 +577,14 @@ function addMouseEventListeners() {
   window.addEventListener('mousemove', stage_mouseMoveHandler);
   window.addEventListener('mousedown', stage_mouseDownHandler);
   window.addEventListener('mouseup', stage_mouseUpHandler);
+  window.addEventListener('mousewheel', mouseWheelHandler);
 }
 
 function removeMouseEventListeners() {
   window.removeEventListener('mousemove', stage_mouseMoveHandler);
   window.removeEventListener('mousedown', stage_mouseDownHandler);
   window.removeEventListener('mouseup', stage_mouseUpHandler);
+  window.removeEventListener('mousewheel', mouseWheelHandler);
 }
 
 function stage_mouseMoveHandler(event) {
@@ -613,6 +615,20 @@ function objectPressHandler(event) {
   ringLastSelected = ringSelected;
   ringSelected = num - 1;
   pressRingSelected();
+}
+
+function mouseWheelHandler(event) {
+  var event = window.event || event;
+  var delta = event.wheelDelta || -event.detail;
+  dragRing = true;
+  wheelRings(delta);
+  return false;
+}
+
+function wheelRings(delta) {
+  var ringSelectedRotation = ringSelectedInitRotation - (delta * 10);
+  rings[ringSelected].rotationX = stepRotation(ringSelectedRotation);
+  updateCodeChar();
 }
 
 function dragRings() {
