@@ -280,24 +280,24 @@ function onKeyPress(e) {
   // All other key presses are caught here
   else {
     switch (e.keyCode) {
-      case Keyboard.BACKSPACE:
+      case 8:
         inputMode = "delete";
-        charSelected = 36;
+        charSelected = 8;
         replaceCodeChar(e);
         break;
-      case Keyboard.LEFT:
+      case 37:
         inputMode = "select";
         selectPreviousRing();
         break;
-      case Keyboard.RIGHT:
+      case 39:
         inputMode = "select";
         selectNextRing();
         break;
-      case Keyboard.UP:
+      case 38:
         inputMode = "enter";
         ringUp();
         break;
-      case Keyboard.DOWN:
+      case 40:
         inputMode = "enter";
         ringDown();
         break;
@@ -306,7 +306,7 @@ function onKeyPress(e) {
     }
   }
 
-  traceKeyPresses(e);
+  // traceKeyPresses(e);
 }
 
 function replaceCodeChar(e) {
@@ -326,10 +326,10 @@ function replaceCodeChar(e) {
   // Otherwise replace with selected character
   else codeArray[ringSelected][1] = char;
 
-  displayRingCharSelected();
+  // displayRingCharSelected();
   displayCodeArray();
-  selectRing();
-  showCodeCharSelected();
+  // selectRing();
+  // showCodeCharSelected();
 }
 
 // private function updateCodeChar():void {
@@ -351,10 +351,9 @@ function replaceCodeChar(e) {
 // }
 
 function traceKeyPresses(e) {
-  console.log("------------ traceKeyPresses ------------");
+  console.log("------------ Key Press ------------");
   console.log("Keycode: " + e.keyCode);
-  console.log("Character Code: " + e.charCode);
-  console.log("Character: " + String.fromCharCode(e.charCode));
+  console.log("Character: " + e.key);
   console.log("Character (Caps): " + String.fromCharCode(e.keyCode));
 }
 
