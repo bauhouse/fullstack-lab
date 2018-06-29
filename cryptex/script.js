@@ -271,6 +271,7 @@ function displayCodeArray() {
     else charElements[i].innerText = codeArray[i][1];
   }
   // test whether the code has been solved
+  code = codeElement.innerText;
   testCode();
 }
 
@@ -415,7 +416,8 @@ function successfullyDecoded() {
 }
 
 function displaySuccessMessage() {
-  codeElement.innerHTML = "CONGRATULATIONS, YOU HAVE SOLVED THE CODE";
+  addClassName(codeElement, 'solved');
+  codeElement.innerHTML = "Congratulations, you have solved the code!";
 }
 
 
@@ -427,14 +429,14 @@ function rotateRing() {
   var targetRotation = codeArray[ringSelected][0] * 360 / strings.length;
   ringElements[ringSelected].style.transform = 'rotateX(' + targetRotation + 'deg)';
   // console.log(targetRotation);
-  console.log(charSelected);
+  // console.log(charSelected);
 }
 
 function rotateCryptexRings(ringNum) {
   var targetRotation = codeArray[ringNum][0] * 360 / strings.length;
   ringElements[ringSelected].style.transform = 'rotateX(' + targetRotation + 'deg)';
   // console.log(targetRotation);
-  console.log(charSelected);
+  // console.log(charSelected);
 }
 
 function updateRingRotation(ringNum) {
@@ -442,7 +444,7 @@ function updateRingRotation(ringNum) {
   rings[ringNum].rotationX = targetRotation;
   ringElements[ringSelected].style.transform = 'rotateX(' + targetRotation + 'deg)';
   // console.log(targetRotation);
-  console.log(charSelected);
+  // console.log(charSelected);
 }
 
 function selectRing() {
