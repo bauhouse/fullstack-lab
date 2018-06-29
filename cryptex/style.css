@@ -65,6 +65,7 @@ body {
   height: 36px;
   width: 36px;
   transform-style: preserve-3d;
+  transition: transform .5s;
 }
 
 .plane {
