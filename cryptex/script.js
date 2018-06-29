@@ -221,9 +221,12 @@ function formatCode() {
   displayCode.innerText = '';
   for (var i = 0; i < hint.length; i++) {
     var codeChar = document.createElement('span');
-    codeChar.className = "char";
+    codeChar.className = 'char';
+    if (i == 0) {
+      codeChar.className += ' selected';
+    }
     codeChar.setAttribute('data-index', i);
-    codeChar.innerText = "_";
+    codeChar.innerText = '_';
     displayCode.appendChild(codeChar);
   }
 }
@@ -374,17 +377,17 @@ function traceKeyPresses(e) {
   console.log("Character (Caps): " + String.fromCharCode(e.keyCode));
 }
 
-// private function showCodeCharSelected():void {
-//   code.setTextFormat(codeFormat);
-//   if (success) {} else code.setTextFormat(charSelectedFormat, ringSelected, ringSelected + 1);
-// }
+function showCodeCharSelected() {
+  code.setTextFormat(codeFormat);
+  if (success) {} else code.setTextFormat(charSelectedFormat, ringSelected, ringSelected + 1);
+}
 
-// private function focusCodeCharSelection():void {
-//   // display selected character
-//   code.setSelection(ringSelected, ringSelected + 1);
-//   code.alwaysShowSelection = true;
-//   code.stage.focus = code;
-// }
+function focusCodeCharSelection() {
+  // display selected character
+  // code.setSelection(ringSelected, ringSelected + 1);
+  // code.alwaysShowSelection = true;
+  // code.stage.focus = code;
+}
 
 
 // --------------------------------------
@@ -497,23 +500,21 @@ function testCode() {
 //   cylinders[ringSelected].material = ringMaterialActive;
 // }
 
-// private function displayRingCharSelected():void {
-//   deselectRingLastSelected();
-//   cylinders[ringSelected].material = ringMaterialActive;
-//   rotateRing();
-//   resetChars(ringSelected);
-//   displayCharSelected();
-// }
+function displayRingCharSelected() {
+  deselectRingLastSelected();
+  // cylinders[ringSelected].material = ringMaterialActive;
+  rotateRing();
+  resetChars(ringSelected);
+  displayCharSelected();
+}
 
-// private function displayCharSelected():void {
-//   if (codeArray[ringSelected][0] != 36) {
-//     var charNum:uint = codeArray[ringSelected][0];
-//     var char:DisplayObject3D = codeChars[ringSelected][charNum];
-//     var txt:Text3D = codeTexts[ringSelected][charNum];
-//     txt.scale = 0.3;
-//     txt.material.copy(textMaterialActive);
-//   }
-// }
+function displayCharSelected() {
+  if (codeArray[ringSelected][0] != 36) {
+    var charNum = codeArray[ringSelected][0];
+    var char = codeChars[ringSelected][charNum];
+    var txt = codeTexts[ringSelected][charNum];
+  }
+}
 
 // private function displayCryptexChars(ringNum:uint):void {
 //   if (codeArray[ringNum][0] != 36) {
@@ -525,16 +526,16 @@ function testCode() {
 //   }
 // }
 
-// private function deselectRingLastSelected():void {
-//   cylinders[ringLastSelected].material = ringMaterial;
-//   ringLastSelected = ringSelected;
-// }
+function deselectRingLastSelected() {
+  // cylinders[ringLastSelected].material = ringMaterial;
+  ringLastSelected = ringSelected;
+}
 
-// private function resetRingLastSelected():void {
-//   cylinders[ringSelected].material = ringMaterial;
-//   resetChars(ringLastSelected);
-//   ringLastSelected = ringSelected;
-// }
+function resetRingLastSelected() {
+  // cylinders[ringSelected].material = ringMaterial;
+  resetChars(ringLastSelected);
+  ringLastSelected = ringSelected;
+}
 
 // private function resetChars(ringNum:uint):void {
 //   for (var i:uint = 0; i < strings.length; i++) {
