@@ -276,7 +276,7 @@ function displayCodeArray() {
 }
 
 function addKeyPressListeners() {
-  document.addEventListener('keyup', onKeyPress);
+  document.addEventListener('keydown', onKeyPress);
 }
 
 function onKeyPress(e) {
