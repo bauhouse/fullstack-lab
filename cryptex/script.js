@@ -155,14 +155,12 @@ function drawCodeRings() {
 
   for (var i = 0; i < numRings; i++) {
 
-    var positionX = i * ringSpacing;
-
     // Create arrays for each ring
     codeChars[i] = [];
     codeTexts[i] = [];
     codeArray[i] = {};
 
-    rings[i] = drawRing(i, positionX);
+    rings[i] = drawRing(i);
     rings[i].name = "ring" + String(i + 1);
     obj.appendChild(rings[i]);
 
@@ -170,7 +168,7 @@ function drawCodeRings() {
 
 }
 
-function drawRing(ringIndex, positionX) {
+function drawRing(ringIndex) {
   var ring = document.createElement('div');
 
   ring.id = 'ring' + (ringIndex + 1);
