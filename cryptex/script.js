@@ -113,8 +113,6 @@ function initialize() {
 
   trackKeyboardInput();
   displayRingSelected();
-  // initializeCryptexRings();
-  // dragRings();
   addMouseEventListeners();
   // displayHints();
 
@@ -429,23 +427,17 @@ function displaySuccessMessage() {
 function rotateRing() {
   var targetRotation = codeArray[ringSelected].index * 360 / strings.length;
   ringElements[ringSelected].style.transform = 'rotateX(' + targetRotation + 'deg)';
-  // console.log(targetRotation);
-  // console.log(charSelected);
 }
 
 function rotateCryptexRings(ringNum) {
   var targetRotation = codeArray[ringNum].index * 360 / strings.length;
   ringElements[ringSelected].style.transform = 'rotateX(' + targetRotation + 'deg)';
-  // console.log(targetRotation);
-  // console.log(charSelected);
 }
 
 function updateRingRotation(ringNum) {
   var targetRotation = codeArray[ringNum].index * 360 / strings.length;
   rings[ringNum].rotationX = targetRotation;
   ringElements[ringSelected].style.transform = 'rotateX(' + targetRotation + 'deg)';
-  // console.log(targetRotation);
-  // console.log(charSelected);
 }
 
 function selectRing() {
@@ -595,13 +587,15 @@ function removeMouseEventListeners() {
 
 function stage_mouseMoveHandler(event) {
   mouseY = event ? event.pageY : window.event.clientY;
+  if (dragRing) {
+    dragRings();
+  }
 }
 
 function stage_mouseDownHandler(event) {
   isMouseDown = true;
   initMouseY = mouseY;
   ringSelectedInitRotation = rings[ringSelected].rotationX;
-  console.log(initMouseY);
 }
 
 function stage_mouseUpHandler(event) {
