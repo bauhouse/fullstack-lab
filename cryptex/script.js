@@ -325,7 +325,7 @@ function onKeyPress(e) {
         ringDown();
         break;
       default:
-        console.log("Not a valid keyboard input");
+        // console.log("Not a valid keyboard input");
     }
   }
 
