@@ -162,8 +162,8 @@ function drawCodeRings() {
 
     rings[i] = drawRing(i);
     rings[i].name = "ring" + String(i + 1);
+    rings[i].rotationX = 0;
     obj.appendChild(rings[i]);
-
   }
 
 }
