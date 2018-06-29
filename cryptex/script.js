@@ -466,7 +466,6 @@ function selectPreviousRing() {
     displayRingCharSelected();
     showCodeCharSelected();
   }
-  // console.log("Select previous: " + ringSelected);
 }
 
 function selectNextRing() {
@@ -479,7 +478,6 @@ function selectNextRing() {
     displayRingCharSelected();
     showCodeCharSelected();
   }
-  // console.log("Select next: " + ringSelected);
 }
 
 function ringUp() {
@@ -519,9 +517,11 @@ function displayRingCharSelected() {
 
 function displayCharSelected() {
   if (codeArray[ringSelected].index != 36) {
-    var charNum = codeArray[ringSelected].index;
-    var char = codeChars[ringSelected][charNum];
-    var txt = codeTexts[ringSelected][charNum];
+    var index = codeArray[ringSelected].index;
+    var char = codeChars[ringSelected][index];
+    var txt = codeTexts[ringSelected][index];
+    var ring = ringElements[ringSelected];
+    displaySelectedRingCharacter(ringSelected, index);
   }
 }
 
@@ -533,7 +533,16 @@ function displaySelectRingElement() {
       removeClassName(ringElements[i], 'select');
     }
   }
-  // console.log(charElements);
+}
+
+function displaySelectedRingCharacter(ringNum, index) {
+  for (var i = 0; i < codeChars[ringNum].length; i++) {
+    if (i == index) {
+      addClassName(codeChars[ringNum][i], 'selected');
+    } else {
+      removeClassName(codeChars[ringNum][i], 'selected');
+    }
+  }
 }
 
 function deselectRingLastSelected() {
