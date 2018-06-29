@@ -1,21 +1,27 @@
 /* https://webkit.org/blog-files/3d-transforms/morphing-cubes.html */
 
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 body {
   background-color: black;
   color: white;
-  font-family: 'Lucida Grande', Verdana, Arial;
+  font-family: Helvetica, san-serif;
   font-size: 12px;
   background-image: -webkit-gradient(radial,
-    50% 500, 1,
-    50% 500, 400,
+    50% 400, 1,
+    50% 400, 400,
     from(rgba(255, 255, 255, 0.3)),
     to(rgba(255, 255, 255, 0)));
   background-repeat: no-repeat;
+  margin: 0;
 }
 
 #container {
   width: 100%;
-  height: 1000px;
+  height: 800px;
   perspective: 800;
   perspective-origin: 50% 400px;
 }
@@ -26,23 +32,29 @@ body {
   transform-style: preserve-3d;
 }
 
+#object {
+  position: relative;
+  top: 50%;
+  width: 696px;
+  margin: 0 auto;
+}
+
 .ring {
   position: absolute;
-  top: 40%;
+  top: 0;
   left: 0;
-  height: 67px;
-  width: 67px;
+  height: 36px;
+  width: 36px;
   transform-style: preserve-3d;
 }
 
 .plane {
   position: absolute;
-  height: 67px;
-  width: 67px;
+  height: 36px;
+  width: 36px;
   box-sizing: border-box;
   text-align: center;
-  font-family: Times, serif;
-  font-size: 54px;
+  font-size: 27px;
   color: white;
   background-color: rgba(0, 0, 0, 0.8);
   transition: transform 2s, opacity 2s;
@@ -54,11 +66,11 @@ body {
 }
 
 .ring.backfaces .plane {
-  backface-visibility: visible;
+/*   backface-visibility: visible; */
 }
 
-#shape {
-/*   -webkit-animation: spin 8s infinite linear; */
+.ring {
+  /* animation: spin 12s infinite linear; */
 }
 
 @-webkit-keyframes spin {
@@ -68,145 +80,145 @@ body {
 
 /* ---------- ring styles ------------- */
 .ring > .a {
-  transform: rotateX(0deg) translateZ(380px);
+  transform: rotateX(0deg) translateZ(180px);
 }
 
 .ring > .b {
-  transform: rotateX(350deg) translateZ(380px);
+  transform: rotateX(350deg) translateZ(180px);
 }
 
 .ring > .c {
-  transform: rotateX(340deg) translateZ(380px);
+  transform: rotateX(340deg) translateZ(180px);
 }
 
 .ring > .d {
-  transform: rotateX(330deg) translateZ(380px);
+  transform: rotateX(330deg) translateZ(180px);
 }
 
 .ring > .e {
-  transform: rotateX(320deg) translateZ(380px);
+  transform: rotateX(320deg) translateZ(180px);
 }
 
 .ring > .f {
-  transform: rotateX(310deg) translateZ(380px);
+  transform: rotateX(310deg) translateZ(180px);
 }
 
 .ring > .g {
-  transform: rotateX(300deg) translateZ(380px);
+  transform: rotateX(300deg) translateZ(180px);
 }
 
 .ring > .h {
-  transform: rotateX(290deg) translateZ(380px);
+  transform: rotateX(290deg) translateZ(180px);
 }
 
 .ring > .i {
-  transform: rotateX(280deg) translateZ(380px);
+  transform: rotateX(280deg) translateZ(180px);
 }
 
 .ring > .j {
-  transform: rotateX(270deg) translateZ(380px);
+  transform: rotateX(270deg) translateZ(180px);
 }
 
 .ring > .k {
-  transform: rotateX(260deg) translateZ(380px);
+  transform: rotateX(260deg) translateZ(180px);
 }
 
 .ring > .l {
-  transform: rotateX(250deg) translateZ(380px);
+  transform: rotateX(250deg) translateZ(180px);
 }
 
 .ring > .m {
-  transform: rotateX(240deg) translateZ(380px);
+  transform: rotateX(240deg) translateZ(180px);
 }
 
 .ring > .n {
-  transform: rotateX(230deg) translateZ(380px);
+  transform: rotateX(230deg) translateZ(180px);
 }
 
 .ring > .o {
-  transform: rotateX(220deg) translateZ(380px);
+  transform: rotateX(220deg) translateZ(180px);
 }
 
 .ring > .p {
-  transform: rotateX(210deg) translateZ(380px);
+  transform: rotateX(210deg) translateZ(180px);
 }
 
 .ring > .q {
-  transform: rotateX(200deg) translateZ(380px);
+  transform: rotateX(200deg) translateZ(180px);
 }
 
 .ring > .r {
-  transform: rotateX(190deg) translateZ(380px);
+  transform: rotateX(190deg) translateZ(180px);
 }
 
 .ring > .s {
-  transform: rotateX(180deg) translateZ(380px);
+  transform: rotateX(180deg) translateZ(180px);
 }
 
 .ring > .t {
-  transform: rotateX(170deg) translateZ(380px);
+  transform: rotateX(170deg) translateZ(180px);
 }
 
 .ring > .u {
-  transform: rotateX(160deg) translateZ(380px);
+  transform: rotateX(160deg) translateZ(180px);
 }
 
 .ring > .v {
-  transform: rotateX(150deg) translateZ(380px);
+  transform: rotateX(150deg) translateZ(180px);
 }
 
 .ring > .w {
-  transform: rotateX(140deg) translateZ(380px);
+  transform: rotateX(140deg) translateZ(180px);
 }
 
 .ring > .x {
-  transform: rotateX(130deg) translateZ(380px);
+  transform: rotateX(130deg) translateZ(180px);
 }
 
 .ring > .y {
-  transform: rotateX(120deg) translateZ(380px);
+  transform: rotateX(120deg) translateZ(180px);
 }
 
 .ring > .z {
-  transform: rotateX(110deg) translateZ(380px);
+  transform: rotateX(110deg) translateZ(180px);
 }
 
 .ring > .zero {
-  transform: rotateX(100deg) translateZ(380px);
+  transform: rotateX(100deg) translateZ(180px);
 }
 
 .ring > .one {
-  transform: rotateX(90deg) translateZ(380px);
+  transform: rotateX(90deg) translateZ(180px);
 }
 
 .ring > .two {
-  transform: rotateX(80deg) translateZ(380px);
+  transform: rotateX(80deg) translateZ(180px);
 }
 
 .ring > .three {
-  transform: rotateX(70deg) translateZ(380px);
+  transform: rotateX(70deg) translateZ(180px);
 }
 
 .ring > .four {
-  transform: rotateX(60deg) translateZ(380px);
+  transform: rotateX(60deg) translateZ(180px);
 }
 
 .ring > .five {
-  transform: rotateX(50deg) translateZ(380px);
+  transform: rotateX(50deg) translateZ(180px);
 }
 
 .ring > .six {
-  transform: rotateX(40deg) translateZ(380px);
+  transform: rotateX(40deg) translateZ(180px);
 }
 
 .ring > .seven {
-  transform: rotateX(30deg) translateZ(380px);
+  transform: rotateX(30deg) translateZ(180px);
 }
 
 .ring > .eight {
-  transform: rotateX(20deg) translateZ(380px);
+  transform: rotateX(20deg) translateZ(180px);
 }
 
 .ring > .nine {
-  transform: rotateX(10deg) translateZ(380px);
+  transform: rotateX(10deg) translateZ(180px);
 }
