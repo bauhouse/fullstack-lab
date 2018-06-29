@@ -73,6 +73,7 @@ var inputMode = "enter";
 
 var cylinders = [];
 var currentCylinder;
+var mouseY = 0;
 var initMouseY;
 var ringSelectedInitRotation;
 var previousMouseY;
@@ -113,7 +114,8 @@ function initialize() {
   trackKeyboardInput();
   displayRingSelected();
   // initializeCryptexRings();
-  // addMouseEventListeners();
+  // dragRings();
+  addMouseEventListeners();
   // displayHints();
 
 }
@@ -576,55 +578,59 @@ function highlightAllRings() {
 }
 
 
-// // --------------------------------------
-// // Mouse functions
-// // --------------------------------------
+// --------------------------------------
+// Mouse functions
+// --------------------------------------
 
-// private function addMouseEventListeners():void {
-//   stage.addEventListener(MouseEvent.MOUSE_DOWN, stage_mouseDownHandler);
-//   stage.addEventListener(MouseEvent.MOUSE_UP, stage_mouseUpHandler);
-// }
+function addMouseEventListeners() {
+  window.addEventListener('mousemove', stage_mouseMoveHandler);
+  window.addEventListener('mousedown', stage_mouseDownHandler);
+  window.addEventListener('mouseup', stage_mouseUpHandler);
+}
 
-// private function stage_mouseDownHandler(event:MouseEvent):void {
-//   isMouseDown = true;
-//   initMouseY = mouseY;
-//   ringSelectedInitRotation = rings[ringSelected].rotationX;
+function stage_mouseMoveHandler(event) {
+  mouseY = event ? event.pageY : window.event.clientY;
+}
 
-// }
+function stage_mouseDownHandler(event) {
+  isMouseDown = true;
+  initMouseY = mouseY;
+  ringSelectedInitRotation = rings[ringSelected].rotationX;
+  console.log(initMouseY);
+}
 
-// private function stage_mouseUpHandler(event:MouseEvent):void {
-//   isMouseDown = false;
-//   dragRing = false;
-// }
+function stage_mouseUpHandler(event) {
+  isMouseDown = false;
+  dragRing = false;
+}
 
-// private function objectPressHandler(event:InteractiveScene3DEvent):void {
-//   var thisObject:DisplayObject3D = event.displayObject3D;
-//   var num:uint = Number(thisObject.name.substr(8));
+function objectPressHandler(event) {
+  var thisObject = event.target;
+  var num = Number(thisObject.name.substr(8));
 
-//   dragRing = true;
-//   playSound(_stone, .3);
+  dragRing = true;
+  // playSound(_stone, .3);
 
-//   ringLastSelected = ringSelected;
-//   ringSelected = num - 1;
-//   pressRingSelected();
-// }
+  ringLastSelected = ringSelected;
+  ringSelected = num - 1;
+  pressRingSelected();
+}
 
-// private function dragRings():void {
-//   var currentMouseY:Number = mouseY;
+function dragRings() {
+  var currentMouseY = mouseY;
 
-//   if(isMouseDown && dragRing)
-//   {
-//     var differenceY:Number = currentMouseY - initMouseY;
-//     var ringSelectedRotation:Number = ringSelectedInitRotation - (differenceY * .6);
+  if (isMouseDown && dragRing) {
+    var differenceY = currentMouseY - initMouseY;
+    var ringSelectedRotation = ringSelectedInitRotation - (differenceY * .6);
 
-//     // step rotation
-//     rings[ringSelected].rotationX = stepRotation(ringSelectedRotation);
+    // step rotation
+    rings[ringSelected].rotationX = stepRotation(ringSelectedRotation);
 
-//     updateCodeChar();
-//   }
+    updateCodeChar();
+  }
 
-//   previousMouseY = currentMouseY;
-// }
+  previousMouseY = currentMouseY;
+}
 
 function stepRotation(objRotation) {
   // modulo operator to keep rotation in the -360 to 360 degree range
@@ -648,9 +654,9 @@ function stepRotation(objRotation) {
 }
 
 
-// // --------------------------------------
-// // Hints
-// // --------------------------------------
+// --------------------------------------
+// Hints
+// --------------------------------------
 
 // private function displayHints():void {
 //   hintMessages = new CryptexHints();
