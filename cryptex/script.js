@@ -405,27 +405,20 @@ function displaySelectCharElements() {
 function testCode() {
   if (code == solution) {
     success = true;
-    alert("SOLVED");
-    // dispatchEvent(new Event(SOLVED));
-    // successfullyDecoded();
+    successfullyDecoded();
   }
 }
 
-// private function successfullyDecoded():void {
-//   removeChild(hintMessages);
-//   stage.removeEventListener(KeyboardEvent.KEY_DOWN, onKeyPress);
-//   highlightAllRings();
-//   displaySuccessMessage();
+function successfullyDecoded() {
+  // removeChild(hintMessages);
+  document.removeEventListener('keyup', onKeyPress);
+  highlightAllRings();
+  displaySuccessMessage();
+}
 
-//   _musicChannel.stop();
-//   playSound(_dreams);
-// }
-
-// private function displaySuccessMessage():void {
-//   codeFormat.letterSpacing = 0;
-//   code.setTextFormat(codeFormat);
-//   code.text = "CONGRATULATIONS, YOU HAVE UNLOCKED THE CRYPTEX";
-// }
+function displaySuccessMessage() {
+  code.text = "CONGRATULATIONS, YOU HAVE UNLOCKED THE CRYPTEX";
+}
 
 
 // --------------------------------------
