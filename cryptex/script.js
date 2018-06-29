@@ -410,7 +410,7 @@ function testCode() {
 
 function successfullyDecoded() {
   // removeChild(hintMessages);
-  document.removeEventListener('keyup', onKeyPress);
+  document.removeEventListener('keydown', onKeyPress);
   highlightAllRings();
   displaySuccessMessage();
 }
