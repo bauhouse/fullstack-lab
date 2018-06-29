@@ -417,7 +417,7 @@ function successfullyDecoded() {
 }
 
 function displaySuccessMessage() {
-  code.text = "CONGRATULATIONS, YOU HAVE UNLOCKED THE CRYPTEX";
+  codeElement.innerHTML = "CONGRATULATIONS, YOU HAVE SOLVED THE CODE";
 }
 
 
