@@ -61,7 +61,7 @@ body {
   backface-visibility: hidden;
 }
 
-.selected {
+.ring > .selected {
   color: DodgerBlue;
 }
 
