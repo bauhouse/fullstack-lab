@@ -387,13 +387,6 @@ function showCodeCharSelected() {
   // console.log(code);
 }
 
-function focusCodeCharSelection() {
-  // display selected character
-  // code.setSelection(ringSelected, ringSelected + 1);
-  // code.alwaysShowSelection = true;
-  // code.stage.focus = code;
-}
-
 function displaySelectCharElements() {
   for (var i = 0; i < charElements.length; i++) {
     if (i == ringSelected) {
