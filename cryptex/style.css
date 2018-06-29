@@ -43,6 +43,11 @@ body {
   letter-spacing: .5em;
 }
 
+#code.solved {
+  font-family: Helvetica, sans-serif;
+  letter-spacing: 0;
+}
+
 #code .selected {
   color: red;
 }
