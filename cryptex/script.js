@@ -173,6 +173,7 @@ function drawRing(ringIndex) {
 
   ring.id = 'ring' + (ringIndex + 1);
   ring.className = 'ring backfaces';
+  ring.addEventListener('click', objectPressHandler);
 
   for (var i = 0; i < strings.length; i++) {
 
@@ -609,8 +610,8 @@ function stage_mouseUpHandler(event) {
 }
 
 function objectPressHandler(event) {
-  var thisObject = event.target;
-  var num = Number(thisObject.name.substr(8));
+  var thisObject = event.currentTarget;
+  var num = Number(thisObject.name.substr(4));
 
   dragRing = true;
   // playSound(_stone, .3);
