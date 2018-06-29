@@ -264,10 +264,11 @@ function displayCodeArray() {
   for (var i = 0; i < codeArray.length; i++) {
     // replace spaces with underscores
     if (codeArray[i][1] == " ") {
-      code = "_";
+      charElements[i].innerText = "_";
     }
     // otherwise display each character
-    else code = codeArray[i][1];
+    // else code = codeArray[i][1];
+    else charElements[i].innerText = codeArray[i][1];
   }
   // test whether the code has been solved
   testCode();
@@ -338,7 +339,7 @@ function replaceCodeChar(e) {
   // else playSound(_typewriter);
 
   // Store selected character into code array
-  var char = e.key;
+  var keyChar = String.fromCharCode(e.keyCode);
   codeArray[ringSelected][0] = charSelected;
 
   // Replace selected character with space
@@ -346,7 +347,7 @@ function replaceCodeChar(e) {
     codeArray[ringSelected][1] = "_";
   }
   // Otherwise replace with selected character
-  else codeArray[ringSelected][1] = char;
+  else codeArray[ringSelected][1] = keyChar;
 
   displayRingCharSelected();
   displayCodeArray();
@@ -383,8 +384,6 @@ function showCodeCharSelected() {
   if (!success) {
     displaySelectCharElements();
   }
-  // console.log("Show code character selected");
-  // console.log(code);
 }
 
 function displaySelectCharElements() {
@@ -395,7 +394,6 @@ function displaySelectCharElements() {
       removeClassName(charElements[i], 'selected');
     }
   }
-  // console.log(charElements);
 }
 
 // --------------------------------------
@@ -427,25 +425,24 @@ function displaySuccessMessage() {
 
 function rotateRing() {
   var targetRotation = codeArray[ringSelected][0] * 360 / strings.length;
-  // TweenLite.to( rings[ringSelected], 1, { rotationX:targetRotation, ease:Strong.easeOut } );
-  console.log(targetRotation);
   ringElements[ringSelected].style.transform = 'rotateX(' + targetRotation + 'deg)';
-  console.log(ringElements[ringSelected]);
+  // console.log(targetRotation);
+  console.log(charSelected);
 }
 
 function rotateCryptexRings(ringNum) {
   var targetRotation = codeArray[ringNum][0] * 360 / strings.length;
-  // TweenLite.to( rings[ringNum], 1, { rotationX:targetRotation, ease:Strong.easeOut } );
-  console.log(targetRotation);
   ringElements[ringSelected].style.transform = 'rotateX(' + targetRotation + 'deg)';
+  // console.log(targetRotation);
+  console.log(charSelected);
 }
 
 function updateRingRotation(ringNum) {
   var targetRotation = codeArray[ringNum][0] * 360 / strings.length;
   rings[ringNum].rotationX = targetRotation;
-  // TweenLite.to( rings[ringNum], .01, { rotationX:targetRotation, ease:Strong.easeOut } );
-  console.log(targetRotation);
   ringElements[ringSelected].style.transform = 'rotateX(' + targetRotation + 'deg)';
+  // console.log(targetRotation);
+  console.log(charSelected);
 }
 
 function selectRing() {
