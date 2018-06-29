@@ -437,7 +437,7 @@ function rotateCryptexRings(ringNum) {
 
 function updateRingRotation(ringNum) {
   var targetRotation = codeArray[ringNum][0] * 360 / strings.length;
-  // rings[ringNum].rotationX = targetRotation;
+  rings[ringNum].rotationX = targetRotation;
   // TweenLite.to( rings[ringNum], .01, { rotationX:targetRotation, ease:Strong.easeOut } );
 }
 
