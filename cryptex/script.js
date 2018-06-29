@@ -626,77 +626,9 @@ function testCode() {
 // }
 
 
-
-
-// Keyboard events from Pomodoro Clock
-function init() {
-  for (var i = 0; i < buttons.length; i++) {
-    var button = buttons[i];
-    button.addEventListener("click", function( event ) {
-      getInput(this);
-    });
-  }
-  keyboard();
-}
-
-function inputType(button) {
-  var id = button.id;
-  type = id;
-  return type;
-}
-
-function getInput(button) {
-  switch (inputType(button)) {
-    case "start_stop":
-      startStop();
-      break;
-    case "reset":
-      reset();
-      break;
-    case "session-increment":
-      changeSession(1);
-      break;
-    case "session-decrement":
-      changeSession(-1);
-      break;
-    case "break-increment":
-      changeBreak(1);
-      break;
-    case "break-decrement":
-      changeBreak(-1);
-  }
-}
-
-function keyboard() {
-  // keyboardEvents("keydown");
-  keyboardEvents("keyup");
-}
-
-function keyboardEvents(keyEvent) {
-  document.addEventListener(keyEvent, function (event) {
-    if (event.defaultPrevented) {
-      return;
-    }
-    var key = event.key || event.keyCode;
-
-    for (var i = 0; i < buttons.length; i++) {
-      // var button = buttons[i];
-      // if (button.dataset.key == key) {
-      //   handleKeyboardEvent(button, keyEvent);
-      // }
-    }
-  });
-}
-
-function handleKeyboardEvent(button, keyEvent) {
-  if (keyEvent == "keydown") {
-    // button.classList.add("select");
-    // getInput(button);
-  }
-  if (keyEvent == "keyup") {
-    // button.classList.remove("select");
-  }
-}
+// --------------------------------------
+// Class Functions
+// --------------------------------------
 
 // Class functions from Webkit
 // https://webkit.org/blog-files/3d-transforms/morphing-cubes.html
