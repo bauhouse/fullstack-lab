@@ -184,6 +184,7 @@ function drawRing(ringIndex, positionX) {
     // set text for each plane
     var char = strings[i];
     plane.innerText = char;
+    plane.setAttribute("unselectable", "on");
 
     // set class for each plane
     plane.className = 'plane ';
