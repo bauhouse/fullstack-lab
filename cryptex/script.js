@@ -160,7 +160,8 @@ function drawCodeRings() {
 
     rings[i] = drawRing(i);
     rings[i].name = "ring" + String(i + 1);
-    rings[i].rotationX = 0;
+    rings[i].rotation360 = 0;
+    rings[i].rotateX = 0;
     obj.appendChild(rings[i]);
   }
 
@@ -431,19 +432,12 @@ function rotateRing() {
 
 function updateRingRotation(ringNum) {
   var targetRotation = codeArray[ringNum].index * 360 / strings.length;
-  rings[ringNum].rotationX = targetRotation;
-  rotateElement(ringElements[ringSelected], targetRotation);
+  rings[ringNum].rotation360 = targetRotation;
+  rings[ringNum].rotateX += targetRotation;
+  rotateElement(ringElements[ringSelected], rings[ringNum].rotateX);
 }
 
-// https://stackoverflow.com/questions/19618745/css3-rotate-transition-doesnt-take-shortest-way
-function rotateElement(element, nR) {
-  var aR;
-  var rot = rot || 0; // if rot undefined or 0, make 0, else rot
-  var aR = rot % 360;
-  if ( aR < 0 ) { aR += 360; }
-  if ( aR < 180 && (nR > (aR + 180)) ) { rot -= 360; }
-  if ( aR >= 180 && (nR <= (aR - 180)) ) { rot += 360; }
-  rot += (nR - aR);
+function rotateElement(element, rot) {
   element.style.transform = ("rotateX( " + rot + "deg )");
 }
 
@@ -481,17 +475,19 @@ function selectNextRing() {
 }
 
 function ringUp() {
-  var ringRotation = rings[ringSelected].rotationX - 10;
-  ringRotation %= 360;
-  rings[ringSelected].rotationX = stepRotation(ringRotation);
+  var ringRotation = rings[ringSelected].rotation360 - 10;
+  // ringRotation %= 360;
+  rings[ringSelected].rotation360 = stepRotation(ringRotation).rotation360;
+  rings[ringSelected].rotateX = stepRotation(ringRotation).rotateX;
 
   updateCodeChar();
 }
 
 function ringDown() {
-  var ringRotation = rings[ringSelected].rotationX + 10;
-  ringRotation %= 360;
-  rings[ringSelected].rotationX = stepRotation(ringRotation);
+  var ringRotation = rings[ringSelected].rotation360 + 10;
+  // ringRotation %= 360;
+  rings[ringSelected].rotation360 = stepRotation(ringRotation).rotation360;
+  rings[ringSelected].rotateX = stepRotation(ringRotation).rotateX;
 
   updateCodeChar();
 }
@@ -605,7 +601,7 @@ function stage_mouseMoveHandler(event) {
 function stage_mouseDownHandler(event) {
   isMouseDown = true;
   initMouseY = mouseY;
-  ringSelectedInitRotation = rings[ringSelected].rotationX;
+  ringSelectedInitRotation = rings[ringSelected].rotation360;
 }
 
 function stage_mouseUpHandler(event) {
@@ -664,7 +660,8 @@ function dragRings() {
     var ringSelectedRotation = ringSelectedInitRotation - (differenceY * .6);
 
     // step rotation
-    rings[ringSelected].rotationX = stepRotation(ringSelectedRotation);
+    rings[ringSelected].rotation360 = stepRotation(ringSelectedRotation).rotation360;
+    rings[ringSelected].rotateX = stepRotation(ringSelectedRotation).rotateX;
 
     updateCodeChar();
   }
@@ -673,24 +670,28 @@ function dragRings() {
 }
 
 function stepRotation(objRotation) {
+  var rotation360 = objRotation;
   // modulo operator to keep rotation in the -360 to 360 degree range
-  objRotation %= 360;
+  rotation360 %= 360;
 
   // ensure rotation is always expressed as uint: 0 to 360 degrees
-  if (objRotation < 0) {
-    objRotation = 360 + Math.round(objRotation);
+  if (rotation360 < 0) {
+    rotation360 = 360 + Math.round(rotation360);
   }
 
   var numRingChars = strings.length;
   var degreesPerChar = 360 / numRingChars;
-  var charIndex = Math.round(objRotation / degreesPerChar);
-  var targetRotation = degreesPerChar * charIndex;
+  var charIndex = Math.round(rotation360 / degreesPerChar);
+  var rotation = {
+    rotateX: objRotation,
+    rotation360: rotation360
+  }
 
   // keep charSelected within the range of available characters
   if (charIndex < numRingChars) charSelected = charIndex;
   else charSelected = 0;
 
-  return targetRotation;
+  return rotation;
 }
 
 
