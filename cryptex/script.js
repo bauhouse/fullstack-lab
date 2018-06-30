@@ -48,7 +48,7 @@ var rings = [];
 var buttons = [];
 
 var hint = "            ";
-var solution = "PUZZLESOLVED";
+var solution = "HAVINGFUNYET";
 var success = false;
 
 
