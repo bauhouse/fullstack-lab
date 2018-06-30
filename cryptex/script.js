@@ -490,9 +490,11 @@ function ringDown() {
 }
 
 function pressRingSelected() {
+  updateCodeChar();
   deselectRingLastSelected();
   displaySelectRingElement();
   showCodeCharSelected();
+  displayRingCharSelected();
 }
 
 function displayRingSelected() {
@@ -605,14 +607,18 @@ function stage_mouseUpHandler(event) {
 }
 
 function objectPressHandler(event) {
-  var thisObject = event.currentTarget;
-  var num = Number(thisObject.name.substr(4));
+  var thisRing = event.currentTarget;
+  var num = Number(thisRing.name.substr(4));
+  var thisChar = event.target;
+  var char = thisChar.innerText;
+  charSelected = index = strings.indexOf(char);
 
   dragRing = true;
   // playSound(_stone, .3);
 
   ringLastSelected = ringSelected;
   ringSelected = num - 1;
+
   pressRingSelected();
 }
 
