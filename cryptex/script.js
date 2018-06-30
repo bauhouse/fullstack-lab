@@ -609,9 +609,12 @@ function stage_mouseUpHandler(event) {
 function objectPressHandler(event) {
   var thisRing = event.currentTarget;
   var num = Number(thisRing.name.substr(4));
-  var thisChar = event.target;
-  var char = thisChar.innerText;
-  charSelected = index = strings.indexOf(char);
+
+  if (event.target.classList.contains('plane')) {
+    var thisChar = event.target;
+    var char = thisChar.innerText;
+    charSelected = strings.indexOf(char);
+  }
 
   dragRing = true;
   // playSound(_stone, .3);
