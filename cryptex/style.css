@@ -64,7 +64,6 @@ body {
   top: 50%;
   width: calc(var(--ring-spacing) * var(--num-rings));
   margin: 0 auto;
-  counter-reset: ring;
 }
 
 .ring {
@@ -74,8 +73,6 @@ body {
   height: var(--plane-size);
   width: var(--plane-size);
   transform-style: preserve-3d;
-  /* transition: transform .5s; */
-  counter-increment: ring;
 }
 
 .plane {
