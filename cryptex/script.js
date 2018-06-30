@@ -429,11 +429,6 @@ function rotateRing() {
   rotateElement(ringElements[ringSelected], targetRotation);
 }
 
-function rotateCryptexRings(ringNum) {
-  var targetRotation = codeArray[ringNum].index * 360 / strings.length;
-  rotateElement(ringElements[ringSelected], targetRotation);
-}
-
 function updateRingRotation(ringNum) {
   var targetRotation = codeArray[ringNum].index * 360 / strings.length;
   rings[ringNum].rotationX = targetRotation;
