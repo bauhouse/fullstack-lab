@@ -300,6 +300,7 @@ body {
   .ring {
     height: var(--plane-size-lrg);
     width: var(--plane-size-lrg);
+    transition: transform .5s;
   }
 
   .plane {
