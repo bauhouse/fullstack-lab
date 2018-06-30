@@ -426,18 +426,30 @@ function displaySuccessMessage() {
 
 function rotateRing() {
   var targetRotation = codeArray[ringSelected].index * 360 / strings.length;
-  ringElements[ringSelected].style.transform = 'rotateX(' + targetRotation + 'deg)';
+  rotateElement(ringElements[ringSelected], targetRotation);
 }
 
 function rotateCryptexRings(ringNum) {
   var targetRotation = codeArray[ringNum].index * 360 / strings.length;
-  ringElements[ringSelected].style.transform = 'rotateX(' + targetRotation + 'deg)';
+  rotateElement(ringElements[ringSelected], targetRotation);
 }
 
 function updateRingRotation(ringNum) {
   var targetRotation = codeArray[ringNum].index * 360 / strings.length;
   rings[ringNum].rotationX = targetRotation;
-  ringElements[ringSelected].style.transform = 'rotateX(' + targetRotation + 'deg)';
+  rotateElement(ringElements[ringSelected], targetRotation);
+}
+
+// https://stackoverflow.com/questions/19618745/css3-rotate-transition-doesnt-take-shortest-way
+function rotateElement(element, nR) {
+  var aR;
+  var rot = rot || 0; // if rot undefined or 0, make 0, else rot
+  var aR = rot % 360;
+  if ( aR < 0 ) { aR += 360; }
+  if ( aR < 180 && (nR > (aR + 180)) ) { rot -= 360; }
+  if ( aR >= 180 && (nR <= (aR - 180)) ) { rot += 360; }
+  rot += (nR - aR);
+  element.style.transform = ("rotateX( " + rot + "deg )");
 }
 
 function selectRing() {
