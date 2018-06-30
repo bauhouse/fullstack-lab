@@ -172,6 +172,7 @@ function drawRing(ringIndex) {
   ring.id = 'ring' + (ringIndex + 1);
   ring.className = 'ring backfaces';
   ring.addEventListener('click', objectPressHandler);
+  ring.setAttribute('data-rotatex', 0);
 
   for (var i = 0; i < strings.length; i++) {
 
@@ -426,18 +427,46 @@ function displaySuccessMessage() {
 
 function rotateRing() {
   var targetRotation = codeArray[ringSelected].index * 360 / strings.length;
+  debugRotation(ringSelected);
   rotateElement(ringElements[ringSelected], targetRotation);
 }
 
 function rotateCryptexRings(ringNum) {
+  var currentRotation = charSelected * 360 / strings.length;
   var targetRotation = codeArray[ringNum].index * 360 / strings.length;
   rotateElement(ringElements[ringSelected], targetRotation);
 }
 
 function updateRingRotation(ringNum) {
   var targetRotation = codeArray[ringNum].index * 360 / strings.length;
+  targetRotation = debugRotation(ringNum);
   rings[ringNum].rotationX = targetRotation;
-  rotateElement(ringElements[ringSelected], targetRotation);
+  ringElements[ringSelected].style.transform = ("rotateX(" + targetRotation + "deg)");
+  ringElements[ringSelected].setAttribute('data-rotatex', targetRotation);
+
+  // if (Math.abs(targetRotation) < 180) {
+  //   ringElements[ringSelected].style.transform = ("rotateX(" + targetRotation + "deg)");
+  // } else {
+  //   rotateElement(ringElements[ringSelected], targetRotation);
+  // }
+}
+
+function debugRotation(ringNum) {
+  var currentRotation = rings[ringNum].rotationX;
+  var targetRotation = codeArray[ringNum].index * 360 / strings.length;
+  var diff = targetRotation - currentRotation;
+  console.log("-----------------------------");
+  console.log("current: " + currentRotation);
+  console.log("target: " + targetRotation);
+  console.log("diff: " + diff);
+  var absDiff = Math.abs(diff);
+  if (absDiff > 180) {
+    var newRotation = diff > 0 ? targetRotation - 360 : 360 + targetRotation;
+    console.log("new target: " + newRotation);
+    return newRotation;
+  } else {
+    return targetRotation;
+  }
 }
 
 // https://stackoverflow.com/questions/19618745/css3-rotate-transition-doesnt-take-shortest-way
@@ -450,6 +479,7 @@ function rotateElement(element, nR) {
   if ( aR >= 180 && (nR <= (aR - 180)) ) { rot += 360; }
   rot += (nR - aR);
   element.style.transform = ("rotateX( " + rot + "deg )");
+  element.setAttribute('data-rotatex', rot);
 }
 
 function selectRing() {
